@@ -198,11 +198,12 @@ ul.posts {
 
 
 /* Style from tomafro.net */
-
+/*
 body {
 	margin: 0;
 	padding: 0;
-	font: 18px  "ff-dagny-web-pro-1","ff-dagny-web-pro-2";
+	font-size: 18px !important;
+	font-family: "ff-dagny-web-pro-1","ff-dagny-web-pro-2" !important;
 	line-height: 1.7em;
 	color: black;
 	background: white;
@@ -351,3 +352,4 @@ pre {
 .content p {
   margin-bottom: 1.3em;
 }
+/*
