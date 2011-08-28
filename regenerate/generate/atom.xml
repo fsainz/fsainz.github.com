@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>Alejandro Riera Mainar</title>
+ <link href="http://ariera.github.com/atom.xml" rel="self"/>
+ <link href="http://ariera.github.com/"/>
+ <updated>2011-08-28T20:13:47+02:00</updated>
+ <id>http://ariera.github.com/</id>
+ <author>
+   <name>Alejandro Riera Mainar</name>
+   <email>info@ariera.net</email>
+ </author>
+
+ 
+ <entry>
+   <title>A keyboard shortcut to run tests with watchr</title>
+   <link href="http://ariera.github.com/2011/08/13/a-keyboard-shortcut-to-run-tests-with-watchr.html"/>
+   <updated>2011-08-13T00:00:00+02:00</updated>
+   <id>http://ariera.github.com/2011/08/13/a-keyboard-shortcut-to-run-tests-with-watchr</id>
+   <content type="html">&lt;h1&gt;A keyboard shortcut to run tests with watchr&lt;/h1&gt;
+
+&lt;p class=&quot;meta&quot;&gt;13 Agaust 2011 - Madrid&lt;/p&gt;
+
+
+&lt;p&gt;When developing in rails I use &lt;a href=&quot;https://github.com/mynyml/watchr&quot;&gt;watchr&lt;/a&gt; to run the tests each time a file is saved, but lots of times I find my self adding a whitespace or a newline and saving just to trigger watchr and run the tests.&lt;/p&gt;
+
+&lt;p&gt;I wanted to have is a simple keyboard shortcut (like &lt;code&gt;F15&lt;/code&gt;) to tell watchr to run the last spec, and &lt;a href=&quot;https://github.com/mpartel&quot;&gt;mpartel&lt;/a&gt; (thx! : ) gave me an idea on &lt;a href=&quot;https://github.com/mynyml/watchr/issues/31#issuecomment-1773937&quot;&gt;how to do it&lt;/a&gt;, so here it is.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The rest of the entry is in this gist: &lt;a href=&quot;https://gist.github.com/1139285&quot;&gt;https://gist.github.com/1139285&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Nestable, sortable and dragable categories for a Rails project</title>
+   <link href="http://ariera.github.com/2011/08/07/nestable-sortable-and-dragable-categories.html"/>
+   <updated>2011-08-07T00:00:00+02:00</updated>
+   <id>http://ariera.github.com/2011/08/07/nestable-sortable-and-dragable-categories</id>
+   <content type="html">&lt;h1&gt;Nestable, sortable and dragable categories for a Rails project&lt;/h1&gt;
+
+&lt;p class=&quot;meta&quot;&gt;07 Agaust 2011 - Madrid&lt;/p&gt;
+
+
+&lt;p&gt;In the project I'm working on we wanted to have a Category model which we wanted to be nestable. But we also liked the user to have a draggable interface to manage and rearrange the order of his categories. So we chose &lt;a href=&quot;https://github.com/collectiveidea/awesome_nested_set/&quot;&gt;awesome_nested_set&lt;/a&gt; for the model and &lt;a href=&quot;http://mjsarfatti.com/sandbox/nestedSortable/&quot;&gt;jQuery.nestedSortable&lt;/a&gt; for the UI.&lt;/p&gt;
+
+&lt;p&gt;It took me some time to arrange things to work properly so I wanted to share my work in case it helps anybody.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The rest of the entry is in this gist: &lt;a href=&quot;https://gist.github.com/1130504&quot;&gt;https://gist.github.com/1130504&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>diMLOrb, my first gem</title>
+   <link href="http://ariera.github.com/2011/07/17/dimlorb-my-first-gem.html"/>
+   <updated>2011-07-17T00:00:00+02:00</updated>
+   <id>http://ariera.github.com/2011/07/17/dimlorb-my-first-gem</id>
+   <content type="html">&lt;h1&gt;diMLOrb, my first gem&lt;/h1&gt;
+
+&lt;p class=&quot;meta&quot;&gt;17 July 2011 - Madrid&lt;/p&gt;
+
+
+&lt;p&gt;Metro Ligero Oeste (MLO) is the tramway line I have to take every day. Knowing its timetables is extremely important, especially on weekends when you may have to wait 20 minutes if you miss one. They have recently made a &lt;a href=&quot;http://www.dimlo.es&quot;&gt;web page&lt;/a&gt; which is not awesome but does the job. Nevertheless I wanted more, I wanted a single-click web-app for my iphone that gives me only the information of the trams I take every day, the result: &lt;a href=&quot;http://dimloya.heroku.com/&quot;&gt;diMLOya&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;For that purpose I decided to create my first gem ever, you can check it out in its repo: &lt;a href=&quot;https://github.com/ariera/diMLOrb&quot;&gt;https://github.com/ariera/diMLOrb&lt;/a&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Shortcuts (⌘→ & ⌘←) with Textmate and Snow Leopard</title>
+   <link href="http://ariera.github.com/2010/06/08/home-end-buttons-with-textmate-in-snow-leopard.html"/>
+   <updated>2010-06-08T00:00:00+02:00</updated>
+   <id>http://ariera.github.com/2010/06/08/home-end-buttons-with-textmate-in-snow-leopard</id>
+   <content type="html">&lt;h1&gt;Shortcuts (⌘→ &amp;amp; ⌘←) with Textmate and Snow Leopard&lt;/h1&gt;
+
+&lt;p class=&quot;meta&quot;&gt;08 June 2010 - Madrid&lt;/p&gt;
+
+
+&lt;p&gt;Don’t know why these two shortcuts (aswell as home and end buttons) stoped working in textmate after I upgraded to SL.&lt;/p&gt;
+
+&lt;p&gt;The solution (based on &lt;a href=&quot;http://blog.macromates.com/2005/key-bindings-for-switchers/&quot;&gt;this post&lt;/a&gt; of the textmate blog) is simple: create and edit the DefaultKeyBinding.dic file:&lt;/p&gt;
+
+&lt;p&gt;Liquid error: No such file or directory - posix_spawnp&lt;/p&gt;
+
+&lt;p&gt;Paste these bindings:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    /* home */
+    &quot;\UF729&quot;  = &quot;moveToBeginningOfLine:&quot;; /* home */
+    &quot;@\UF702&quot;  = &quot;moveToBeginningOfLine:&quot;; /* command + left arrow*/
+    &quot;$\UF729&quot; = &quot;moveToBeginningOfLineAndModifySelection:&quot;;
+    &quot;$@\UF702&quot; = &quot;moveToBeginningOfLineAndModifySelection:&quot;;
+
+    /* end */
+    &quot;\UF72B&quot;  = &quot;moveToEndOfLine:&quot;;
+    &quot;@\UF703&quot;  = &quot;moveToEndOfLine:&quot;;
+    &quot;$\UF72B&quot; = &quot;moveToEndOfLineAndModifySelection:&quot;;
+    &quot;$@\UF703&quot; = &quot;moveToEndOfLineAndModifySelection:&quot;;
+
+    /* page up/down */
+    &quot;\UF72C&quot;  = &quot;pageUp:&quot;;
+    &quot;\UF72D&quot;  = &quot;pageDown:&quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Restart Textmate &amp;amp; enjoy : )&lt;/p&gt;
+</content>
+ </entry>
+ 
+ 
+</feed>

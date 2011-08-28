@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>fsainz</title>
-</head>
+---
+layout: default
+title: Alejandro Riera Mainar
+---
 
-<body>
-    <h1>blog</h1>
-</body>
-</html>
+<div id="home">
+  <h1>Blog Posts</h1>
+  <ul class="posts">
+    {% for post in site.posts %}
+      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <h1>Some projects:</h1>
+  <ul class="posts">
+    <li><a href="https://github.com/ariera/diMLOrb/">diMLOrb:</a> Gem to programmatically grab timetables of the Metro Ligero Oeste in Madrid.</li>
+    <li><a href="https://github.com/ariera/TG11-Daltonizer/">Daltonizer:</a> An experiment with <em>Processing</em> to help color-blind people.</li>
+  </ul>
+</div>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Shortcuts (⌘→ & ⌘←) with Textmate and Snow Leopard</title>
+   <meta name="author" content="Alejandro Riera Mainar" />
+   <link href="http://ariera.github.com/atom.xml" rel="alternate" title="Alejandro Riera Mainar" type="application/atom+xml" />
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+
+   <!-- Typekit -->
+   <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
+   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+   <!-- Google Analytics -->
+   <script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-25120205-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+   </script>
+</head>
+<body>
+
+<!-- ClickTale Top part -->
+<script type="text/javascript">
+var WRInitTime=(new Date()).getTime();
+</script>
+<!-- ClickTale end of Top part -->
+
+<div class="site">
+  <div class="title">
+	<img src="/images/ariera.jpg" class="portrait">
+    <a href="/">Alejandro Riera Mainar</a>
+    <a class="extra" href="/">home</a>
+  </div>
+  
+  <div id="post">
+<h1>Shortcuts (⌘→ &amp; ⌘←) with Textmate and Snow Leopard</h1>
+
+<p class="meta">08 June 2010 - Madrid</p>
+
+
+<p>Don’t know why these two shortcuts (aswell as home and end buttons) stoped working in textmate after I upgraded to SL.</p>
+
+<p>The solution (based on <a href="http://blog.macromates.com/2005/key-bindings-for-switchers/">this post</a> of the textmate blog) is simple: create and edit the DefaultKeyBinding.dic file:</p>
+
+<p>Liquid error: No such file or directory - posix_spawnp</p>
+
+<p>Paste these bindings:</p>
+
+<pre><code>{
+    /* home */
+    "\UF729"  = "moveToBeginningOfLine:"; /* home */
+    "@\UF702"  = "moveToBeginningOfLine:"; /* command + left arrow*/
+    "$\UF729" = "moveToBeginningOfLineAndModifySelection:";
+    "$@\UF702" = "moveToBeginningOfLineAndModifySelection:";
+
+    /* end */
+    "\UF72B"  = "moveToEndOfLine:";
+    "@\UF703"  = "moveToEndOfLine:";
+    "$\UF72B" = "moveToEndOfLineAndModifySelection:";
+    "$@\UF703" = "moveToEndOfLineAndModifySelection:";
+
+    /* page up/down */
+    "\UF72C"  = "pageUp:";
+    "\UF72D"  = "pageDown:";
+}
+</code></pre>
+
+<p>Restart Textmate &amp; enjoy : )</p>
+
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span>13 Aug 2011</span> &raquo; <a href="/2011/08/13/a-keyboard-shortcut-to-run-tests-with-watchr.html">A keyboard shortcut to run tests with watchr</a></li>
+    
+      <li><span>07 Aug 2011</span> &raquo; <a href="/2011/08/07/nestable-sortable-and-dragable-categories.html">Nestable, sortable and dragable categories for a Rails project</a></li>
+    
+      <li><span>17 Jul 2011</span> &raquo; <a href="/2011/07/17/dimlorb-my-first-gem.html">diMLOrb, my first gem</a></li>
+    
+  </ul>
+</div>
+  
+  <div class="footer">
+    <div class="contact">
+      <p>
+        Alejandro Riera Mainar<br />
+        Cofounder of <a href="http://wolty.com/">Wolty</a><br />
+        info@ariera.net
+      </p>
+    </div>
+    <div class="contact">
+      <p>
+        <a href="http://github.com/ariera/">github.com/ariera</a><br />
+        <a href="http://twitter.com/dereck/">twitter.com/dereck</a><br />
+        <a href="http://www.ariera.net/">tumblr/caj&oacute;n desastre</a>
+      </p>
+    </div>
+    <div class="rss">
+      <a href="http://ariera.github.com/atom.xml">
+        <img src="/images/rss.png" alt="Subscribe to RSS Feed" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<a href="http://github.com/ariera"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+
+<!-- ClickTale Bottom part -->
+<div id="ClickTaleDiv" style="display: none;"></div>
+<script type="text/javascript">
+if(document.location.protocol!='https:')
+  document.write(unescape("%3Cscript%20src='http://s.clicktale.net/WRb.js'%20type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+if(typeof ClickTale=='function') ClickTale(206,0.3,"www03");
+</script>
+<!-- ClickTale end of Bottom part -->
+
+
+
+
+</body>
+</html>
+
