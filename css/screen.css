@@ -195,7 +195,10 @@ ul.posts {
     margin-bottom: 1em;
   }
 
-
+blockquote {
+	padding-left:15px;
+	border-left:3px solid #DDD;
+}
 /* Style from tomafro.net */
 /*
 body {
