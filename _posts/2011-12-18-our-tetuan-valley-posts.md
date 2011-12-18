@@ -9,7 +9,7 @@ title: Our Tetuan Valley Posts
 
 <p class="meta">December 18th, 2011 - Madrid</p>
 
-We had a great experience participating in this last Tetuan Valley edition, there are many things I could say about but for now I just want to link the post than alex and I wrote for the TVSS's blog:
+We had a great experience participating in this last Tetuan Valley edition, there are many things I could say about it but for now I just want to link to the posts that alex and I wrote for the TVSS's blog:
 
 <img src="/images/bordeaux.jpeg" />
 
