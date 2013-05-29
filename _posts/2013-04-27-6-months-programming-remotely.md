@@ -137,7 +137,7 @@ these have been some of our experiences:
 - The goal of your daily work is to show something good and useful and get things done, nobody is going to watch over your shoulder and check the hours you were sitting on a chair <a href="http://www.quora.com/Career-Advice/What-are-your-favorite-methods-for-looking-busy-at-work" target="_blank">looking busy</a>. This doesn't mean that you only share completed tasks, you also need to share frustrations - the fact that something it's taking you a hard time - and explain and get feedback on
 what you are doing. Working too many hours without checking with someone can make you feel lost or lead you to be too perfectionist on a task that might not be that important. Walking someone through your documents and code commits, and discussing what you are doing is a good way to avoid this.
 
-- It's good to notice the presence of the team throughout the day. Small things like the green lights and jokes on the group chat helps you to feel connected, hangouts and voice calls are really useful, and pair programming is the best thing that we do in terms of being engaged, sharing ideas and havin fun.
+- It's good to notice the presence of the team throughout the day. Small things like the green lights and jokes on the group chat helps you to feel connected, hangouts and voice calls are really useful, and pair programming is the best thing that we do in terms of being engaged, sharing ideas and having fun.
 
 
 <br />
