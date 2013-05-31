@@ -47,7 +47,7 @@ a shower and start working again with energy.
 
 Working remotely doesn't mean working isolated, there are multiple ways to share ideas and though it's true that you lose some of those which come through casual interactions, you have to consider how much you get out of plenty of erratic background conversations while trying to focus on a problem, compared to the fewer and intentional conversations that you have remotely while working without distractions.
 
-Having said that, you do have to pay attention to communicate through chats, mails, phone calls, screensharing.. there's going to be somethings that you don't say out loud, but there's also a good side on thinking about issue first and then asking than saying the first thing that comes to your mind before putting some thought into it.
+Having said that, you do have to pay attention to communicate through chats, mails, phone calls, screensharing.. there's going to be somethings that you don't say out loud, but there's also a good side on thinking about an issue first and then asking than saying the first thing that comes to your mind before putting some thought into it.
 
 I find it important to *keep the connection alive*, It's nice to see the
 green lights on the group chat even if we talk asynchronously. We check with each other early on the morning and quite often after lunch, and I tend to start working earlier and leave earlier but we share most of the work hours during the week.
@@ -85,7 +85,7 @@ This is a place in which you feel happily working on a sunday night, compare it 
 ** no fixed hours **
 
 This may sound like saying "working anytime you want", where it is actually much closer to
-mean "working the whole time". That's one of the things to watch out
+mean "working all the time". That's one of the things to watch out
 for, if you enjoy what you do, if it leaves you hanging on a problem until you fix it, or if you just have a lot of time
 pressure, you lack the time and location restrains that help you separate
 work time from the rest of your life, and you can start getting burned-out without
