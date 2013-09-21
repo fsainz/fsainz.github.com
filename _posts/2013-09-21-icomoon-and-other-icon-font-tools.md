@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Icomoon and other icon font tools.md
+title: Icomoon and other icon font tools
 comments: true
 ---
 
