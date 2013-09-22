@@ -164,14 +164,23 @@ ul.posts {
     margin-left: 1.35em;
   }
 
-  #post code {
+   code {
+color: #366B29;
+border: 1px solid #C9C9C9;
+background-color: #E2E2E2;
+    font-size: 85%;
+    padding: 0 .2em;
+  }
+
+.highlight code{
+
     color: #EEE;
     border: 1px solid #404040;
     background-color: #505050;
     font-size: 85%;
     padding: 0 .2em;
-  }
 
+}
     #post pre code {
       border: none;
     }

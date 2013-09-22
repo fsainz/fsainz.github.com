@@ -14,7 +14,7 @@ comments: true
 <br />
 
 
-Rebecca Murphey gave this talk at JSConfUS 2013 on Optimizing for Developer Delight and show how to use <a href="https://developers.google.com/chrome-developer-tools/docs/console-api#consolegroupobject_object">console.group</a> to get a meaninful nested output of what's going on on your application, this combined with different logging levels is way better that what we are currently doing of a myriad of console.logs which get really hard to scan. 
+Rebecca Murphey gave this talk at JSConfUS 2013 on Optimizing for Developer Delight and show how to use <a href="https://developers.google.com/chrome-developer-tools/docs/console-api#consolegroupobject_object">console.group</a> to get a meaningful nested output of what's going on on your application, this combined with different logging levels is way better that what we are currently doing of a myriad of console.logs which get really hard to scan. 
 
 
 

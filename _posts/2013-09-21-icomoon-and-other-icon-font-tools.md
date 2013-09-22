@@ -20,14 +20,14 @@ If flat and basically monochrome icons fit with your site they are great solutio
 
 <img src="/images/dualicons.png" />
 
-The are some great sites to get free fonts (<a href="http://fortawesome.github.io/Font-Awesome/">FontAwesome</a>, <a href="http://fontello.com/">Fontello</a>, <a href="http://icomoon.io/">IcoMoon</a>, <a href="http://zurb.com/playground/foundation-icons">Zurb</a>, ...) and  afordable ones (<a href="http://symbolset.com/icons">SymbolSet</a> and <a href="http://icomoon.io/">IcoMoon</a> too)
+The are some great sites to get free fonts (<a href="http://fortawesome.github.io/Font-Awesome/">FontAwesome</a>, <a href="http://fontello.com/">Fontello</a>, <a href="http://icomoon.io/">IcoMoon</a>, <a href="http://zurb.com/playground/foundation-icons">Zurb</a>, ...) and affordable ones (<a href="http://symbolset.com/icons">SymbolSet</a> and <a href="http://icomoon.io/">IcoMoon</a> too)
 
 Fontello and IcoMoon showcase mutiple fonts and let you pick the icons you want and combine them in a single font that you can download. Both tools are great but IcoMoon is just amazing.
 
 <br />
 **IcoMoon**
 
-IcoMoon lets you import the popular free fonts (such as fontawesome or entypo) into their <a href="http://icomoon.io/app/">app</a> and purcharse their own premium packs (they have a _Ultimate Package_ with 1266 dual tone icons for $59, not bad)
+IcoMoon lets you import the popular free fonts (such as fontawesome or entypo) into their <a href="http://icomoon.io/app/">app</a> and purchase their own premium packs (they have a _Ultimate Package_ with 1266 dual tone icons for $59, not bad)
 
 What its create is that you can combine these fonts with your own icons (with you upload in svg format):
 
