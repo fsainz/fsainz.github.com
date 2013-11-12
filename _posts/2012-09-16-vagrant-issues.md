@@ -163,3 +163,16 @@ best solution), alternatively, a restart does also the trick.
         # (...) 
       end
     end
+    
+<br />
+###  NS_ERROR_FAILURE
+
+If you get this message:
+
+    Progress state:
+    VBoxManage: error: Failed to create the host-only adapter
+    VBoxManage: error: VBoxNetAdpCtl: Error while adding new interface: failed to open /dev/vboxnetctl: No such file or directory
+
+try a 
+
+    sudo /Library/StartupItems/VirtualBox/VirtualBox restart
