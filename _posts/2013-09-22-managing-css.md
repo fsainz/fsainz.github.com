@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Managing CSS 1/3 - OOCS
+title: Managing CSS 1/4 - OOCS
 comments: true
 ---
 
