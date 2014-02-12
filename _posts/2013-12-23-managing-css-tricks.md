@@ -33,4 +33,12 @@ I started with these three:
 <p data-height="394" data-theme-id="0" data-slug-hash="IwcGE" data-user="fsainz" data-default-tab="result" class='codepen'>See the Pen <a href='http://codepen.io/fsainz/pen/IwcGE'>Floated Media + one line fields (with ellipsis)</a> by Fernando Sainz (<a href='http://codepen.io/fsainz'>@fsainz</a>) on <a href='http://codepen.io'>CodePen</a></p>
 <script async src="//codepen.io/assets/embed/ei.js"></script>
 
+---
+<br />
+<br />
 
+I read a comment on HN about <em>sysvinit</em> which I think is a great (and sad) reply to those who think that css is pretty good as it is today:
+
+<blockquote>
+  <em>css works only if you combine incredibly low expectations with a bad case of Stockholm syndrome.</em>
+</blockquote>
