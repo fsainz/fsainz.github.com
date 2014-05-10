@@ -10,3 +10,4 @@ comments: true
 <p class="meta">May 10th, 2014 - Göttingen</p>
 
 <a href="/jquery_faux_crop.html">Jquery Faux Crop</a>
+<a href="/rails_helper_faux_crop.html">Rails Helper Faux Crop</a>
