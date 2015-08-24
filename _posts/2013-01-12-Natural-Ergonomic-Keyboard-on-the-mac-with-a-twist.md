@@ -1,7 +1,7 @@
 ---
 layout: post
 
-title: Natural Ergonomic Keyboard 4000 on the mac with a twist 
+title: Natural Ergonomic Keyboard 4000 on the mac with a twist
 ---
 
 {{ page.title }}
@@ -12,7 +12,7 @@ title: Natural Ergonomic Keyboard 4000 on the mac with a twist
 I got a <a href="http://www.microsoft.com/hardware/en-us/p/natural-ergonomic-keyboard-4000/B2M-00012
 ">Microsoft Keyboard 400</a> three years ago, I wanted to start
 resting my wrists while typing and learn to type properly for that
-matter. 
+matter.
 
 <img src="/images/keyboard4000.jpeg" />
 
@@ -30,7 +30,7 @@ I wanted a DIY version of <a href="http://www.daskeyboard.com/model-s-ultimate/"
 
 <img src="/images/das_keyboard.jpg" />
 
-I've both a couple of cheap black nail polishes 
+I've both a couple of cheap black nail polishes
 
 <img src="/images/P7273956.jpg" />
 
@@ -48,19 +48,19 @@ feels pretty much the same while typing as the non-painted keys.
 I tried the Microsoft IntelliType for the mac to make some adjustments but I couldn't get some keys to work as i wanted, then I found <strong><a href="http://pqrs.org/macosx/keyremap4macbook/">KeyRemap4MacBook</a></strong>, which let's you do anything you can imagine, it's free, it's on github and it has a great documentation and community.
 
 There's pleanty of keys to remap, but so far I'm satisfied with these
-two settings: 
+two settings:
 
 <img src="/images/KeyRemap4MacBook.png" />
 
 The "Sawp Ordinal-indicator and Less-Than" was working well with the 4000, but it was swapping the keys on
-my macbook as well. It turns out that you can 
+my macbook as well. It turns out that you can
 <a href="http://pqrs.org/macosx/keyremap4macbook/document-misc.html.en"> define
 multiple configurations</a> and change from one another from the MenuBar tab.
 
 But there's something even better, KeyRemap4MacBook let's you
 <a href="http://pqrs.org/macosx/keyremap4macbook/xml-devicedef.html.en
 ">define a device specific setting</a> and create a setting for your
-keyboard's Vendor ID and Product ID. 
+keyboard's Vendor ID and Product ID.
 
 I put this into my private.xml, and then I discovered that they had it
 already listed on their
@@ -74,19 +74,19 @@ and <a href="https://github.com/tekezo/KeyRemap4MacBook/blob/version_7.8.0/src/c
           <vendorname>MICROSOFT_CORPORATION</vendorname>
           <vendorid>0x045e</vendorid>
         </devicevendordef>
-      
+
         <deviceproductdef>
           <productname>KEYBOARD_4000</productname>
           <productid>0x00db</productid>
         </deviceproductdef>
-         	
+
         <item>
           <name>Swap ordinal-indicator(º) and less-than(&lt;)</name>
           <identifier>private.remap.spanish_swap_ordinal_indicator_lessthan</identifier>
           <device_only>DeviceVendor::MICROSOFT_CORPORATION, DeviceProduct::KEYBOARD_4000</device_only>
           <autogen>--KeyToKey-- KeyCode::SPANISH_ORDINAL_INDICATOR, KeyCode::SPANISH_LESS_THAN</autogen>
           <autogen>--KeyToKey-- KeyCode::SPANISH_LESS_THAN, KeyCode::SPANISH_ORDINAL_INDICATOR</autogen>
-        </item>	
+        </item>
       </root>
 
 
@@ -106,8 +106,17 @@ After reloading the private.xml, these are my settings:
 
 Now I need some typing excercises, I trying these ones out:
 
+
+** update ** This one is free, it has a ton of keyboard layouts, speed tests and games.<br/>
+**<a href="http://www.typingstudy.com/">typing-study</a>**
+<img src="/images/typingstudy.png" />
+
+
 **<a href="http://typingclub.com">typingclub.com</a>**
 <img src="/images/typingclub.png" />
 
 **<a href="http://type-fu.com">type-fu.com</a>**
 <img src="/images/typefu.png" />
+
+**<a href="https://typing.io/">typing-io</a>**
+<img src="/images/typing-io.png" />

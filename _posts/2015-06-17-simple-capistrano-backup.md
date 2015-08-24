@@ -83,7 +83,7 @@ After executing it, you get the lines needed to download the files
 
 `bundle exec cap staging deploy:simple_backup`
 
-{% highlight shell %}
+{% highlight bash %}
 scp deployer@[IP]:~/files_production_2015-06-16-15-33-28.tar.gz .
 scp deployer@[IP]:~/dump_database_production_2015-06-16-15-33-28 .
 {% endhighlight %}
