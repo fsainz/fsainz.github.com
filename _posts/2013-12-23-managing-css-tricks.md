@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Managing CSS 4/4 - Box of Tricks
-comments: true
+heading-class: "post-heading-only-image-compact"
 ---
 
 {{ page.title }}

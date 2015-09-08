@@ -1,7 +1,7 @@
 ---
 layout: post
-
-title: Vagrant Issues 
+heading-class: "post-heading-only-image-compact"
+title: Vagrant Issues
 ---
 
 {{ page.title }}
@@ -9,12 +9,12 @@ title: Vagrant Issues
 
 <p class="meta">September 16th, 2012 - Madrid</p>
 
-<img src="/images/vagrant.jpg" />
+<img src="/img/vagrant.jpg" />
 
 <br />
 
-<a href="http://vagrantup.com/">Vagrant</a> is a very useful tool to work develop within virtual environments, which let's you mimic more precisely your server in any development machine, share the exact same environment between developers and get a new machine ready for development in a faster and more predicatably way. 
- 
+<a href="http://vagrantup.com/">Vagrant</a> is a very useful tool to work develop within virtual environments, which let's you mimic more precisely your server in any development machine, share the exact same environment between developers and get a new machine ready for development in a faster and more predictable way.
+
 We've been using it for almost a year now and we've compiled this list
 of issues and solutions:
 
@@ -26,7 +26,7 @@ of issues and solutions:
 >  that the NFS client software is properly installed, and consult any resources
 >  specific to the linux distro you're using for more information on how to
 >  do this."
-  
+
 In spite of that "most often caused", that's never been our case, to
 rule it out try this on your vagrant machine:
 
@@ -66,7 +66,7 @@ to <code>true</code>
 we had this problem some times after packaging. It's related to the way
 ubuntu and debian cache the network interfaces configuration, the MAC of
 one developer machine was being stored and causing trouble when other
-developer tried to use the same box. To fix it just get ride of this file 
+developer tried to use the same box. To fix it just get ride of this file
 <code>/etc/udev/rules.d/70-persistent-net.rules</code> and restart the machine.
 <br />
 
@@ -109,7 +109,7 @@ let's say that the uuid {e22b8a76-b0c4-42a9-87cf-68bbce78c804} is the
 one for production specified in your .vagrant:
 
     #.vagrant
-    {"active":{"production":"e22b8a76-b0c4-42a9-87cf-68bbce78c804","development":"a447fdcf-b1ed-4a18-8801-fcb767df0a56"}} 
+    {"active":{"production":"e22b8a76-b0c4-42a9-87cf-68bbce78c804","development":"a447fdcf-b1ed-4a18-8801-fcb767df0a56"}}
 
 you could just type <code>vagrant destroy production</code> to both the
 machine and the key in .vagrant, but if you wanted to do it manually you
@@ -147,23 +147,23 @@ best solution), alternatively, a restart does also the trick.
     Vagrant::Config.run do |config|
       config.vm.define :dev do |dev_config|
         dev_config.vm.box = "orlyboxdev"
-        
+
         # http://coderwall.com/p/zdnscw
         # this allows vagrant to forward ports between 1 and 1024
         if ["up", "resume"].include? ARGV[0]
-          system %{ sudo sysctl -w net.inet.ip.forwarding=1 } 
+          system %{ sudo sysctl -w net.inet.ip.forwarding=1 }
           system %{ sudo ipfw add fwd 127.0.0.1,8080 tcp from any to any 80  "in" }
           system %{ sudo ipfw add fwd 127.0.0.1,8443 tcp from any to any 443 "in" }
         end
-    
+
         dev_config.vm.forward_port 3000, 3000 # web in development
         dev_config.vm.forward_port 443,  8443 # web in development through NGINX with SSL
         dev_config.vm.forward_port 80,   8080 # web in development through NGINX
-        
-        # (...) 
+
+        # (...)
       end
     end
-    
+
 <br />
 ###  NS_ERROR_FAILURE
 
@@ -173,6 +173,6 @@ If you get this message:
     VBoxManage: error: Failed to create the host-only adapter
     VBoxManage: error: VBoxNetAdpCtl: Error while adding new interface: failed to open /dev/vboxnetctl: No such file or directory
 
-try a 
+try a
 
     sudo /Library/StartupItems/VirtualBox/VirtualBox restart

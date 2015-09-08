@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Faux Cropping with CSS, Jquery and Rails Helpers
-comments: true
+heading-class: "post-heading-only-image-compact"
+subtitle: We've been using a CSS technique to resize and position an image inside a container as if it had been cropped
 ---
 
 {{ page.title }}
@@ -9,7 +10,7 @@ comments: true
 
 <p class="meta">May 10th, 2014 - Göttingen</p>
 
-<img src="/images/crop_example.jpg">
+<img src="/img/crop_example.jpg">
 
 We've been using a CSS technique to resize and position an image inside a container as if it had been cropped. The goal was to provide an image to the user as quickly as possible, before the background image processors finished, and this let us make use of the original image for a couple of seconds.
 

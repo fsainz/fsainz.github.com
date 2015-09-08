@@ -1,6 +1,7 @@
 ---
 layout: post
-title: Cut & Paste in Lion 
+title: Cut & Paste in Lion
+heading-class: "post-heading-only-image-compact"
 ---
 
 {{ page.title }}
@@ -9,7 +10,7 @@ title: Cut & Paste in Lion
 <p class="meta">December 18th, 2011 - Madrid</p>
 
 
-<img src="/images/move.png" />
+<img src="/img/move.png" />
 
 Finally, for the love of god, we have a (pretty hidden by the way) cut and paste feature on the Mac OS X Lion:
 

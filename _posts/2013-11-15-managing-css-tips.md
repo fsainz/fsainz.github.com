@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Managing CSS 3/4 - Tools & Tips
-comments: true
+heading-class: "post-heading-only-image-compact"
 ---
 
 {{ page.title }}

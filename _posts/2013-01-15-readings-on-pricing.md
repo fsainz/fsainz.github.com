@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Readings on Pricing
+heading-class: "post-heading-only-image-compact"
 ---
 
 {{ page.title }}
@@ -9,9 +10,9 @@ title: Readings on Pricing
 <p class="meta">January 15th, 2013 - Madrid</p>
 
 
-<img src="/images/pricing.jpeg" />
+<img src="/img/pricing.jpeg" />
 
-37signals published a small post about "how to price something" which contains just a couple of hints 
+37signals published a small post about "how to price something" which contains just a couple of hints
 
 <a href="http://37signals.com/svn/posts/3394-how-to-price-something">http://37signals.com/svn/posts/3394-how-to-price-something</a>
 
@@ -42,4 +43,3 @@ this one is also very interesting:
 
 they also have a <a href="http://chaotic-flow.com/media/saas-sales-models.pdf">pdf</a>
 <br />
-

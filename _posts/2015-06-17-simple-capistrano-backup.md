@@ -1,7 +1,9 @@
 ---
 layout: post
 title: Simple Capistrano Backup
-comments: true
+subtitle: I wanted to have a dead simple script to create a backup of the files and the database on the deployer home folder with a capistrano task.
+heading-class: "post-heading-only-image-compact"
+
 ---
 
 {{ page.title }}

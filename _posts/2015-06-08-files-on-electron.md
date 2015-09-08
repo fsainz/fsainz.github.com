@@ -1,14 +1,15 @@
 ---
 layout: post
 title: Uploading files with Electron
-comments: true
+subtitle: We are developing an app with electron in which we need to upload files directly from the filesystem (not through a form).
+heading-class: "post-heading-only-image-compact"
 ---
 
 {{ page.title }}
 ================
 
 <p class="meta">June 8th, 2015 - Bonn</p>
-<img src="/images/electron.png" />
+<img src="/img/electron.png" />
 
 We are developing an app with  <a href="http://electron.atom.io/">electron</a> in which we need to upload files directly from the filesystem (not through a form).
 

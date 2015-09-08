@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Sharing my favorite podcasts with Pagebox
-comments: true
+heading-class: "post-heading-only-image-compact"
+subtitle: This is an example of what you can do with Pagebox, the new startup we've been working on.
 ---
 
 {{ page.title }}

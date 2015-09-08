@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Managing CSS 2/4 - A GUI for your app
-comments: true
+heading-class: "post-heading-only-image-compact"
 ---
 
 {{ page.title }}
@@ -17,7 +17,7 @@ Having a library makes you style your pages faster since it gives you one place 
 
 This is how our library looks:
 
-<img src="/images/gui.png" />
+<img src="/img/gui.png" />
 
 
 To get some guideance of how to organize and design your own components is useful to check <a href="http://getbootstrap.com/">Bootstrap</a> and <a href='http://foundation.zurb.com/docs/'>Foundation</a>.  
@@ -32,7 +32,7 @@ Recently I read about a more solid and well explained version of this concept ; 
 
 I think we'll rename it eventually, but <em>misc</em> reminds me of this strip:
 
-<img src="/images/home_organization.png" />
+<img src="/img/home_organization.png" />
 <a href="http://xkcd.com/1077/">http://xkcd.com/1077/</a>
 
 

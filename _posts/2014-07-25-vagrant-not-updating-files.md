@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Vagrant not updating Files
-comments: true
+heading-class: "post-heading-only-image-compact"
+subtitle: After switching from rsynced folders to NFS we noticed that some files didn't update on the VM
 ---
 
 {{ page.title }}
@@ -75,6 +76,3 @@ Here are all the relevant links that I could find on this subject:
 * <a href='http://serverfault.com/questions/30240/disable-all-disk-caching-for-apache2-on-linux'>http://serverfault.com/questions/30240/disable-all-disk-caching-for-apache2-on-linux</a>
 * <a href='http://superuser.com/questions/242928/disable-linux-read-and-write-file-cache-on-partition'>http://superuser.com/questions/242928/disable-linux-read-and-write-file-cache-on-partition</a>
 * <a href='http://serverdown.ttwait.com/que/534507'>http://serverdown.ttwait.com/que/534507</a>
-
-
-

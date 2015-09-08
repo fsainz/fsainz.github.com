@@ -1,4 +1,3 @@
-source :rubygems
-gem 'jekyll'
-gem 'RedCloth'
-gem 'rdiscount'
+source 'https://rubygems.org'
+
+gem 'github-pages'

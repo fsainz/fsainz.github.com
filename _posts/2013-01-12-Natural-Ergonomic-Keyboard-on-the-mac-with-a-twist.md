@@ -1,6 +1,6 @@
 ---
 layout: post
-
+heading-class: "post-heading-only-image-compact"
 title: Natural Ergonomic Keyboard 4000 on the mac with a twist
 ---
 
@@ -14,7 +14,7 @@ I got a <a href="http://www.microsoft.com/hardware/en-us/p/natural-ergonomic-key
 resting my wrists while typing and learn to type properly for that
 matter.
 
-<img src="/images/keyboard4000.jpeg" />
+<img src="/img/keyboard4000.jpeg" />
 
 I've had a problem with this keyboard, there's not a
 spanish version available and mapping the keys in my head for the UK layout while switching to a spanish keyboard and from macs to pcs was always a pain, I kept glancing over the keys time to time and never got over my old typing habits.
@@ -28,16 +28,16 @@ The best solution that I could think of was to get rid of the misplaced key sign
 
 I wanted a DIY version of <a href="http://www.daskeyboard.com/model-s-ultimate/">Das Keyboard Ultimate</a>
 
-<img src="/images/das_keyboard.jpg" />
+<img src="/img/das_keyboard.jpg" />
 
 I've both a couple of cheap black nail polishes
 
-<img src="/images/P7273956.jpg" />
+<img src="/img/P7273956.jpg" />
 
 and applied a thin double layer. So far it's holding like a charm and it
 feels pretty much the same while typing as the non-painted keys.
 
-<img src="/images/P7273948.jpg" />
+<img src="/img/P7273948.jpg" />
 
 
 <br />
@@ -50,7 +50,7 @@ I tried the Microsoft IntelliType for the mac to make some adjustments but I cou
 There's pleanty of keys to remap, but so far I'm satisfied with these
 two settings:
 
-<img src="/images/KeyRemap4MacBook.png" />
+<img src="/img/KeyRemap4MacBook.png" />
 
 The "Sawp Ordinal-indicator and Less-Than" was working well with the 4000, but it was swapping the keys on
 my macbook as well. It turns out that you can
@@ -99,7 +99,7 @@ They seem to have change the <code>--KeyToKey--</code> to <code>\_\_KeyToKey\_\_
 
 After reloading the private.xml, these are my settings:
 
-<img src="/images/KeyRemap4MacBook2.png" />
+<img src="/img/KeyRemap4MacBook2.png" />
 
 
 <hr />
@@ -109,14 +109,14 @@ Now I need some typing excercises, I trying these ones out:
 
 ** update ** This one is free, it has a ton of keyboard layouts, speed tests and games.<br/>
 **<a href="http://www.typingstudy.com/">typing-study</a>**
-<img src="/images/typingstudy.png" />
+<img src="/img/typingstudy.png" />
 
 
 **<a href="http://typingclub.com">typingclub.com</a>**
-<img src="/images/typingclub.png" />
+<img src="/img/typingclub.png" />
 
 **<a href="http://type-fu.com">type-fu.com</a>**
-<img src="/images/typefu.png" />
+<img src="/img/typefu.png" />
 
 **<a href="https://typing.io/">typing-io</a>**
-<img src="/images/typing-io.png" />
+<img src="/img/typing-io.png" />

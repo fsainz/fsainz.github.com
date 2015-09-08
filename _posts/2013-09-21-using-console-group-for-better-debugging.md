@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Using console group for better javascript debugging
-comments: true
+heading-class: "post-heading-only-image-compact"
 ---
 
 {{ page.title }}

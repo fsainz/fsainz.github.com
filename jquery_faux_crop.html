@@ -34,7 +34,7 @@
         top: 140px;
         left: 40px;
         background: rgba(238, 131, 15, 0.3);
-      }      
+      }
       .example_caption{
         position:absolute;
         bottom:5px;
@@ -69,12 +69,12 @@
         font-size:14px;
       }
     </style>
-    <script src="jquery.min.js"></script>
-    <script src="faux_crop.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/faux_crop.js"></script>
     <script type="text/javascript">
       $(function(){
 
-        image_path = "images/example_image.jpg";
+        image_path = "img/example_image.jpg";
         width = 800;
         height = 406;
         target_size = 200;
@@ -97,7 +97,7 @@
           original_crop_x    : original_crop_x,
           original_crop_y    : original_crop_y,
           original_crop_size : original_crop_size
-        })     
+        })
         $("#c").faux_crop();
 
 
@@ -107,7 +107,7 @@
   <body>
     <div id='content'>
       <h1>Jquery Faux Crop</h1>
-      <a href="https://github.com/fsainz/jqueryFauxCrop" id="fork_on_github">Fork on Github</a>        
+      <a href="https://github.com/fsainz/jqueryFauxCrop" id="fork_on_github">Fork on Github</a>
       <br style='clear:both' />
 
       <p>This plugins resizes and positions the image inside a container to act as if it had been cropped. It finds the largest centered square area on the original image and fits it into the thumbnail wrapper. You can also pass crop coordinates as you would do with an image processor.</p>
@@ -115,10 +115,10 @@
      If you rather render the necessary markup from a rails helper (without using javascript at all), check <strong><a href="rails_helper_faux_crop.html">RailsHelperFauxCrop</a></strong>
      </p>
 
-      <br />   
-      <br />   
+      <br />
+      <br />
       <div id="example">
-        <img src="images/example_image.jpg" />
+        <img src="img/example_image.jpg" />
         <div id="example_A_original_crop">
           <div class='example_caption'>
             <strong>example A</strong>
@@ -148,9 +148,9 @@
           width       : 800, // image original width
           height      : 406, // image orinal height
           target_size : 200  // thumbnail size
-        })        
+        })
       </code>
-      </pre>  
+      </pre>
       <br style='clear:both' />
       <div class="media" id="example_B">
       </div>
@@ -165,10 +165,10 @@
           original_crop_x    : 40,
           original_crop_y    : 140,
           original_crop_size : 130
-        })         
+        })
       </code>
       </pre>
-      <br style='clear:both' />    
+      <br style='clear:both' />
       <h4>Data attributes</h4>
       You can either pass the options when calling the function or write them as data attributes on the element:
       <br />

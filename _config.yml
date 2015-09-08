@@ -1,3 +1,19 @@
-markdown: rdiscount
-pygments: true
-auto: true
+# Site settings
+title: fsainz
+header-img: img/my_setup_large.jpg
+email: info@fsainz.com
+description: "Fernando Sainz personal blog"
+baseurl: ""
+url: "http://www.fsainz.com"
+twitter_username:
+github_username:  fsainz
+codepen_username:  fsainz
+tumblr_username:  fsainz
+mail:  info@fsainz
+
+# Build settings
+markdown: kramdown
+highlighter: pygments
+permalink: pretty
+paginate: 5
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]

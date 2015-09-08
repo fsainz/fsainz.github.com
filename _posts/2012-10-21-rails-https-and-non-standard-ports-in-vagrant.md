@@ -1,6 +1,6 @@
 ---
 layout: post
-
+heading-class: "post-heading-only-image-compact"
 title: Rails https and non-standard ports in vagrant
 ---
 
@@ -71,15 +71,15 @@ defaults depending on the current request scheme.
 # app/controllers/application_controller.rb
 
     def default_url_options(options={})
-       port = request.ssl? ? CONFIG[:https_port] : CONFIG[:http_port] 
+       port = request.ssl? ? CONFIG[:https_port] : CONFIG[:http_port]
        options = { :port=> port }
        options
      end
-    
+
      def default_host_with_port
        "#{url_options[:host]}#{":#{url_options[:port]}" if url_options[:port]}"
      end
-    
+
     helper_method :default_url_options, :default_host_with_port
 
 
@@ -98,7 +98,7 @@ The trickiest part was to take care of the redirects. It was unclear for
 us how rails was filling in the remaining part of the url every time we
 used a <em>redirect_to</em> to a path instead of a url, and worst of
 all, we couldn't easily change the way other gems handled their redirects,
-specially when devise relied on warden to handle the response. 
+specially when devise relied on warden to handle the response.
 
 
 Fortunately, we could take advantage of the middleware to detect if
@@ -111,14 +111,14 @@ and set the proper port before letting the response leave our app.
       def initialize(app)
         @app = app
       end
-    
+
       def call(env)
-      
+
        server_name = env["SERVER_NAME"]
-    
+
         # execute the request using our Rails app
        status, headers, body = @app.call(env)
-    
+
         if internal_redirect?(status, headers, server_name)
           [status, {"Location" => url_with_port(headers["Location"])}, ['Redirecting you to the new location...']]
         else
@@ -126,23 +126,22 @@ and set the proper port before letting the response leave our app.
           [status, headers, body]
         end
       end
-    
+
       def internal_redirect?(status, headers, server_name)
         uri = URI.parse(headers["Location"]) if headers["Location"]
         [300, 301, 302, 307].include?(status) && uri.try(:host) == server_name
       end
-    
+
       # add the ports for http and https defined in our CONFIG settings through application.yml
       def url_with_port(url)
         uri = URI.parse(url)
         uri.port = CONFIG["#{uri.scheme}_port".to_sym]
         uri.to_s
       end
-    
+
     end
 
 <br />
 # config/application.rb
 
     config.middleware.insert_before "Warden::Manager", "SetSpecialPorts"
-

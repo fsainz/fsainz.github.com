@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Issues with Active Model Serializers
-comments: true
+heading-class: "post-heading-only-image-compact"
 ---
 
 {{ page.title }}

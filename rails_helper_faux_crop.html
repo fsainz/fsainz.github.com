@@ -34,7 +34,7 @@
         top: 140px;
         left: 40px;
         background: rgba(238, 131, 15, 0.3);
-      }      
+      }
       .example_caption{
         position:absolute;
         bottom:5px;
@@ -73,7 +73,7 @@
   <body>
     <div id='content'>
       <h1>Rails Helper Faux Crop</h1>
-      <a href="https://github.com/fsainz/RailsHelperFauxCrop" id="fork_on_github">Fork on Github</a>        
+      <a href="https://github.com/fsainz/RailsHelperFauxCrop" id="fork_on_github">Fork on Github</a>
       <br style='clear:both' />
 
       <p>This plugins resizes and positions the image inside a container to act as if it had been cropped. It finds the largest centered square area on the original image and fits it into the thumbnail wrapper. You can also pass crop coordinates as you would do with an image processor.</p>
@@ -81,10 +81,10 @@
      If you rather render the necessary markup from a jquery plugin, check <strong><a href="jquery_faux_crop.html">JqueryFauxCrop</a></strong>
      </p>
 
-      <br />   
-      <br />   
+      <br />
+      <br />
       <div id="example">
-        <img src="images/example_image.jpg" />
+        <img src="img/example_image.jpg" />
         <div id="example_A_original_crop">
           <div class='example_caption'>
             <strong>example A</strong>
@@ -104,7 +104,7 @@
       </div>
       <br />
       <br />
-      <div class="media" id="example_A" style="position: relative; overflow:hidden; width:200.0px; height:200.0px"><img src="images/example_image.jpg" style="height:200.0px; width:auto; max-width:none;margin-left:-97.0px; display:block"></div>      
+      <div class="media" id="example_A" style="position: relative; overflow:hidden; width:200.0px; height:200.0px"><img src="img/example_image.jpg" style="height:200.0px; width:auto; max-width:none;margin-left:-97.0px; display:block"></div>
       <h4>Basic Usage: Centered thumbnail</h4>
       <pre>
       <code>
@@ -113,11 +113,11 @@
         800, # image width
         406, # image height
         200 # target size
-        ) %>     
+        ) %>
       </code>
-      </pre>  
+      </pre>
       <br style='clear:both' />
-      <div  class="media" id="example_B" style="position: relative; overflow:hidden; width:200.0px; height:200.0px"><img src="images/example_image.jpg" style="width:1230.769230769231px; max-width:none;height:auto; margin-left:-61.53846153846154px; margin-top:-215.3846153846154px; display:block;"></div>      
+      <div  class="media" id="example_B" style="position: relative; overflow:hidden; width:200.0px; height:200.0px"><img src="img/example_image.jpg" style="width:1230.769230769231px; max-width:none;height:auto; margin-left:-61.53846153846154px; margin-top:-215.3846153846154px; display:block;"></div>
       <h4>Using Crop Coordinates</h4>
       <pre>
       <code>
@@ -129,10 +129,10 @@
         40,  # crop x offset
         140, # crop y offset
         130  # crop size
-        ) %>     
+        ) %>
       </code>
       </pre>
-      <br style='clear:both' />    
+      <br style='clear:both' />
       <h4>Limitations</h4>
       <ul>
         <li>Tested on the good browsers and IE8+</li>

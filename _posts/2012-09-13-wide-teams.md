@@ -1,7 +1,8 @@
 ---
 layout: post
-
-title: Wide Teams 
+heading-class: "post-heading-only-image-compact"
+title: Wide Teams
+subtitle: A few notes about experiences on remote working shared on this podcast
 ---
 
 {{ page.title }}
@@ -9,7 +10,7 @@ title: Wide Teams
 
 <p class="meta">September 13th, 2012 - Madrid</p>
 
-<img src="/images/wideteams.jpg" />
+<img src="/img/wideteams.jpg" />
 
 <br />
 

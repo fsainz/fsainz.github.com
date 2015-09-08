@@ -1,7 +1,8 @@
 ---
 layout: post
 title: to have and not_to have in capybara gotcha
-comments: true
+heading-class: "post-heading-only-image-compact"
+subtitle: We were writing some tests to make sure that some elements were showed on the page only under certain circumstances when we found a seemingly contradictory behaviour of the have_content matcher.
 ---
 
 {{ page.title }}
@@ -9,11 +10,11 @@ comments: true
 
 <p class="meta">June 9th, 2013 - Göttingen</p>
 
-We were writing some tests to make sure that same elemets were showed on the
-page only under certain circunstances when we found a seemingly contradictory behaviour of the *have_content* matcher.
+We were writing some tests to make sure that some elements were showed on the
+page only under certain circumstances when we found a seemingly contradictory behaviour of the *have_content* matcher.
 
 We had an scenario involving loading more content from an ajax request
-similar to this: 
+similar to this:
 
 {% highlight ruby %}
 
@@ -39,7 +40,7 @@ end
 {% endhighlight %}
 
 
-On our test we were checking that the response was showed on the page: 
+On our test we were checking that the response was showed on the page:
 
 {% highlight ruby %}
 # test.rb
@@ -94,7 +95,7 @@ It seems that capybara waits for the request to finish when the
 expectation fails but moves along happily if it passes.
 
 To actually test that the new content wasn't being loaded, we had to
-force capybara to wait before evaluating the assertion: 
+force capybara to wait before evaluating the assertion:
 
 {% highlight ruby %}
 
@@ -106,5 +107,3 @@ it "should be able to find an element", js:true do
   expect(page).to_not have_content("new content")
 end
 {% endhighlight %}
-
-

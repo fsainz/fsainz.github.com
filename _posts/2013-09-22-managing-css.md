@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Managing CSS 1/4 - OOCS
-comments: true
+heading-class: "post-heading-only-image-compact"
 ---
 
 {{ page.title }}

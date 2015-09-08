@@ -1,7 +1,8 @@
 ---
 layout: post
 title: 6 months programming remotely
-comments: true
+heading-class: "post-heading-only-image-compact"
+subtitle: We had been working remotely in several occasions over the last two years, but it wasn't until the last six months that we became full time remote workers
 ---
 
 {{ page.title }}
@@ -10,7 +11,7 @@ comments: true
 <p class="meta">April 27th, 2013 - Göttingen</p>
 
 
-<img src="/images/mi_setup.jpg" />
+<img src="/img/mi_setup.jpg" />
 
 
 
@@ -26,7 +27,7 @@ commuting, now I take a look at my feeds while having breakfast and I'm ready to
 And during these hours, I'm much more focused on what i'm doing. Our previous workplace was an opened
 shared space in which really nice people came and go continuously and
 talked to us, but even with fewer people I find it hard not to
-overhear what they are working on and start thinking about it. 
+overhear what they are working on and start thinking about it.
 
 I love that we can pair program and
 discuss a topic in group and then immediately focus on a task alone without
@@ -52,13 +53,13 @@ Having said that, you do have to pay attention to communicate through chats, mai
 I find it important to *keep the connection alive*, It's nice to see the
 green lights on the group chat even if we talk asynchronously. We check with each other early on the morning and quite often after lunch, and I tend to start working earlier and leave earlier but we share most of the work hours during the week.
 
-We wouldn't be able to do much without some good tools in place: we use tmux+vim and ichat screensharing for pair programming, hipchat for group chat, google talk for quick calls, google hangouts for group video calls, github for code, pivotal tracker for tasks, referema for the knowledgebase, google drive for documents that we want edit collaboratively, dropbox for the rest of them, and of course emails. 
+We wouldn't be able to do much without some good tools in place: we use tmux+vim and ichat screensharing for pair programming, hipchat for group chat, google talk for quick calls, google hangouts for group video calls, github for code, pivotal tracker for tasks, referema for the knowledgebase, google drive for documents that we want edit collaboratively, dropbox for the rest of them, and of course emails.
 
 
 <br />
 **  your home as your office **
 
-this can depend greatly on who you live with, but in any case the best thing its too have your own space in which it's clear for everyone that you are working. You are going to find yourself taking advantage of short breaks to do the laundry, wash the dishes or talk to your family, but since of the commons problems for remote workers is not doing enough breaks and getting up of the chair, this is actually not an issue. 
+this can depend greatly on who you live with, but in any case the best thing its too have your own space in which it's clear for everyone that you are working. You are going to find yourself taking advantage of short breaks to do the laundry, wash the dishes or talk to your family, but since of the commons problems for remote workers is not doing enough breaks and getting up of the chair, this is actually not an issue.
 
 One of the inconveniences is that it's harder to stop working and disconnect, some tips
 would be to have your office in a separate room or at least not in your
@@ -75,7 +76,7 @@ and mugs as you feel comfortable with. No more cleaning service asking
 you to leave your desk to clean while you are coding or fights about the
 dirty cups in the sink and complains about a lousy internet
 connection of a coworking place. Get the best connection you can find, a good router, put on some music, make your working space as
-optimized and comfortable as you like it to be. 
+optimized and comfortable as you like it to be.
 
 This is a place in which you feel happily working on a sunday night, compare it to working almost alone on a sunday in an larger office space with your headphones knowing that you need an hour to get home afterwards.
 
@@ -89,7 +90,7 @@ mean "working all the time". That's one of the things to watch out
 for, if you enjoy what you do, if it leaves you hanging on a problem until you fix it, or if you just have a lot of time
 pressure, you lack the time and location restrains that help you separate
 work time from the rest of your life, and you can start getting burned-out without
-noticing it. 
+noticing it.
 
 I find it useful to have a routine even if its a flexible one, which
 includes shared team hours, an upper limit to disconnect on a regular
@@ -110,7 +111,7 @@ In regard to team work, there's a tendency to communicate more
 asynchronously through chat and emails, if someone asks you to take a
 look at something and you need a minute to finish what you were doing,
 you say 'i'll be there in a minute' more often than you would do in
-person, which makes sense to me. 
+person, which makes sense to me.
 
 What it's more problematic is the fact that you can be hours motionless in
 your chair, not even moving your eyes off the screen. This is already bad in an
@@ -121,7 +122,7 @@ proving to be pretty unhealthy for my neck and back.
 
 I'm using <a href="https://itunes.apple.com/us/app/breaktime/id427475982?mt=12" target="_blank">BreakTime</a> to schedule breaks and remind me to stretch out, go grab something to drink and move my legs around the house, and I go running on alternate days. Doing sport regularly seems to be in my case the most important thing to avoid position related pains, and i love that i can fit it easily on my daily schedule.
 
-<img src="/images/salir_a_correr.jpg" />
+<img src="/img/salir_a_correr.jpg" />
 
 
 
@@ -130,7 +131,7 @@ I'm using <a href="https://itunes.apple.com/us/app/breaktime/id427475982?mt=12" 
 
 these have been some of our experiences:
 
-- You have to avoid working continously the whole week because this will slowly exhaust you. 
+- You have to avoid working continously the whole week because this will slowly exhaust you.
 
 - You have to pay attention to your social life, and do other things that you love. This will make you more motivated in general, work included.
 
@@ -172,7 +173,7 @@ I have to get better at keeping in contact with the all the people who I can't m
 <hr />
 <br />
 
-<em>Edit:These are the resources that I've been collecting on remote working </em> 
+<em>Edit:These are the resources that I've been collecting on remote working </em>
 <br />
 
 <script type='text/javascript'>// <![CDATA[
