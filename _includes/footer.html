@@ -101,3 +101,20 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="{{ "/js/clean-blog.min.js " | prepend: site.baseurl }}"></script>
+
+<script src="../js/lightgallery-all.min.js"></script>
+
+<script>
+  {{ page.custom-script }}
+</script>
+
+<script>
+
+$(function(){
+  $('#aniimated-thumbnials').lightGallery({
+      thumbnail:true,
+      animateThumb: false,
+      showThumbByDefault: false
+  });
+})
+</script>
