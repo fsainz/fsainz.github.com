@@ -435,3 +435,21 @@ a.gallery-see-all {
   text-decoration: underline;
   font-size: 17px;
 }
+.all-posts-list {
+  list-style-type: none;
+  padding: 0;
+}
+.all-posts-list li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 120px;
+}
+.all-posts-list-date {
+  color: #AAA;
+  width: 100px;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  text-align: right;
+  font-size: 17px;
+}
