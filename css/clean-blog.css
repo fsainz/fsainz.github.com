@@ -409,3 +409,29 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #0085a1;
 }
+.project-date {
+  font-weight: 300;
+  color: #888;
+  margin-left: 10px;
+  font-family: 'Lora', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 17px;
+}
+.project-header {
+  border-bottom: 1px solid #EEE;
+  padding-bottom: 10px;
+}
+.project-title {
+  margin-top: 50px;
+}
+.project-list p {
+  margin: 20px 0;
+}
+.project-gallery-thumbnails {
+  margin-top: 30px;
+}
+a.gallery-see-all {
+  color: #337ab7;
+  text-decoration: underline;
+  font-size: 17px;
+}

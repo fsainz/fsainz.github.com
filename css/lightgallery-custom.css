@@ -1,0 +1,117 @@
+.gallery-thumbnails-item{
+  display: none;
+}
+
+.gallery-thumbnails-item.gallery-thumbnails-item-starred{
+  display: inline-block;
+}
+
+.gallery-thumbnails{
+  margin-right: -20px;
+}
+.gallery-thumbnails-item{
+  height: 120px;
+  overflow: hidden;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  width: calc( (100% - 46px) /2);
+}
+
+@media(min-width: 560px){
+  .gallery-thumbnails-item{
+    width: calc( (100% - 71px) /3);
+    height: 140px;
+  }
+}
+
+@media(min-width: 760px){
+  .gallery-thumbnails-item{
+    width: calc( (100% - 96px) /4);
+  }
+}
+
+.gallery-thumbnails-item{
+  background-size: cover;
+  background-position: top center;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3);
+  border-radius: 3px;
+}
+
+.gallery-thumbnails-item img{
+  width:100%;
+}
+
+@media(min-width: 1200px){
+  .lg-outer.lg-side-comments .lg-img-wrap {
+    padding-right: 320px !important;
+  }
+
+  .lg-outer.lg-side-comments .lg-side-comments-wrap {
+    height: 100%;
+    overflow-y: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 320px;
+    z-index: 99999;
+    box-shadow: -1px 0px 0px #444;
+    padding: 48px 20px 15px 20px;
+  }
+
+  .lg-sub-html .lg-side-comments-wrap p, .lg-sub-html .lg-side-comments-wrap h4{
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+
+  .lg-toolbar {
+    right: 0;
+    width: 230px;
+    left: calc(100% - 230px);
+    z-index: 100000;
+  }
+
+  .lg-outer.lg-side-comments .lg-actions .lg-next {
+    right: 330px;
+  }
+
+  .lg-outer.lg-side-comments .lg-item {
+    background-image: none;
+    padding-right: 320px;
+  }
+
+  .lg-outer.lg-side-comments .lg-item.lg-complete .lg-img-wrap {
+    background-image: none;
+  }
+
+  .lg-outer.lg-side-comments .lg-sub-html {
+    padding: 0;
+    position: static;
+  }
+}
+
+.lg-toolbar{
+  background: rgba(0,0,0,0.5);
+}
+
+.lg-sub-html, .lg-side-comments-wrap {
+  background: #000;
+}
+
+.lg-side-comments-wrap{
+  text-align: left;
+  padding: 10px 0;
+}
+
+.lg-sub-html{
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.lg-sub-html .lg-side-comments-wrap {
+  color: #EEE;
+}
+
+@media(max-width: 800px){
+  .lg-sub-html .lg-side-comments-wrap p{
+    display: none;
+  }
+}
