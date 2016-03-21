@@ -82,3 +82,12 @@
 .highlight .vi { color: teal; }
 .highlight .il { color: #009999; }
 .highlight .gc { color: #999; background-color: #EAF2F5; }
+
+
+figure.highlight{
+  margin: 30px 0;
+}
+
+p.meta{
+  color: #999;
+}
