@@ -68,6 +68,15 @@ match_data.captures
 match_data = "Number 123".match /(?<number>\d+)/ #=> #<MatchData "123" number:"123">
 match_data[:number] # => 123  # same as match_data.captures[0], match_data[1]
 
+match_data.captures
+# => ["123"]
+
+match_data.names
+# => ["number"]
+
+match_data.names.zip(match_data.captures).to_h
+# => {"number"=>"123"}
+
 "Number 123 456".scan(/\d+/)
 #=> [
 #  [0] "123",
