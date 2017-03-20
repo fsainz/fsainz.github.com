@@ -167,20 +167,3 @@ people in person time to time. The ideal for me would be to have a shared space 
 remotely the rest of week.
 
 I have to get better at keeping in contact with the all the people who I can't meet as often, but I have wasted a huge amount of time commuting and being constantly distracted, and I'm glad that i'm not doing that anymore.
-
-<br />
-<br />
-<hr />
-<br />
-
-<em>Edit:These are the resources that I've been collecting on remote working </em>
-<br />
-
-<script type='text/javascript'>// <![CDATA[
-  (function(){
-      var e = document.createElement('script'); e.type = 'text/javascript'; e.async = true;
-      e.src = "//www.pagebox.es/assets/embeds/parent.js";
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(e);
-  })();
-// ]]></script>
-<iframe src="//www.pagebox.es/embeds/c82bdafcfe7a97e00a3aee42160bc3c25c582ab5" data-pagebox-id='c82bdafcfe7a97e00a3aee42160bc3c25c582ab5' frameborder='0' scrolling="no" style="width:100%; overflow:hidden;"></iframe>
