@@ -7,7 +7,7 @@ heading-class: "post-heading-only-image-compact"
 {{ page.title }}
 ================
 
-<p class="meta">June 17th, 2017 - Bonn</p>
+<p class="meta">June 17th, 2018 - Bonn</p>
 
 I made a small gem to remove nil and empty elements from a hash recursively:  <a href="https://github.com/i22-digitalagentur/epic-hash-cleaner">https://github.com/i22-digitalagentur/epic-hash-cleaner</a>.
 
