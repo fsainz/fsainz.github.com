@@ -19,6 +19,12 @@ jobs:
         ruby-version: 3.3
         bundler-cache: true
 
+    - name: Inject Google Maps API key into config
+      env:
+        GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+      run: |
+        sed -i "s/google_maps_api_key: \"\"/google_maps_api_key: \"${GOOGLE_MAPS_API_KEY}\"/" _config.yml
+
     - name: Build Jekyll site
       env:
         JEKYLL_ENV: production
