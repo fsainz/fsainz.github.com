@@ -1,2 +1,15 @@
 _site
 node_modules
+
+# Environment variables and local config
+.env
+.env.local
+_config.yml
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
