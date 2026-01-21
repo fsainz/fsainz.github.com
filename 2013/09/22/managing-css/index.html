@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fernando Sainz personal blog">
+
+    <title>Managing CSS 1/4 - OOCS - fsainz</title>
+
+    <link rel="canonical" href="http://www.fsainz.com/2013/09/22/managing-css/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <link rel="stylesheet" href="../css/lightgallery.min.css" />
+    <link rel="stylesheet" href="../css/lg-transitions.min.css" />
+    <link rel="stylesheet" href="../css/lightgallery-custom.css" />
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target="#bs-example-navbar-collapse-1"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">fsainz</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        
+        <li>
+          <a href="/about/">About</a>
+        </li>
+        
+        <li>
+          <a href="/projects/">projects</a>
+        </li>
+        
+        <li>
+          <a href="//www.fsainz.com/bonn">Bonn</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h1 id="managing-css-14---oocs">Managing CSS 1/4 - OOCS</h1>
+
+<p class="meta">September 22nd, 2013 - Göttingen</p>
+
+<p>CSS tends to chaos easily. As a large set of rules that extend and override each other its tempting just to write a few lines more somewhere that fixes the problem at hand without following a pattern or taking care of their scope and avoiding repetition.</p>
+
+<p>With code we try to limit the reach and responsibility of every object, we write tests, avoid duplication and surprises like monkey-patching, we split long methods into meaningful chunks and explain and document what it’s needed. With css it seems that we can toss a couple more declarations somewhere, and though it sort of works, this leads to huge files hard to maintain, and hours wasted writing the some code, fighting other rules, and fixing visual bugs which are really tricky to detect.</p>
+
+<p>There are many ways to improve this. I like specially the ideas behind OOCSS - <em>Object Oriented CSS</em>, mainly that we should think in terms of modular components and reuse code through mixins and class composition more than class inheritance (so the result is predictable).</p>
+
+<p>We shouldn’t inherit styles and look like a dangerous clickable button because we are a link inside the last great-grand-child of someone <code>#projects .admin_panel ul li:last-child a</code> but because we look and behave like a clickable button <code>class="btn"</code> and we have a danger “skin” <code>class"btn btn-danger"</code></p>
+
+<p>Our selectors shouldn’t go any deeper that the necessary to implement their concerns <code>.main-vertical-nav &gt; .active &gt; a</code>, and we should avoid to overspecify our declarations and the use of <code>!important</code>, with leads to a <em>specificity wars</em> in which we desperately try to win over an almost identical rule written by us three months ago.</p>
+
+<p>When you think about components rather than about the semantically meaningful pieces of your application you tend to identify reusable patterns more easily. For example if you have different kinds of headers instead of naming and targeting them like h1.post-title, .profiles_list h1, #account-settings .main_header h1.title .. etc, define three styles of headers (h1, h1.primary, h1.secondary) that look the same no matter where they are. A sign that this leads to reuse is that you could take this concept to another project and keep the names and declarations and just change their properties.</p>
+
+<p><a href="www.stubbornella.org/‎">Stubbornella</a> explains the advantages of thinking in components versus semantic classes and the core concepts of OOCSS in her talk <strong><a href="http://es.slideshare.net/stubbornella/our-best-practices-are-killing-us" target="_blank">Our Best Practices Are Killing Us</a></strong> , and in this <a href="https://github.com/stubbornella/oocss/wiki">wiki</a> she talks about the two main concepts of OOCSS:</p>
+
+<blockquote>
+  <p><strong>Separate structure and skin</strong></p>
+
+  <p>This means to define repeating visual features (like background and border styles) as  separate “skins” that you can mix-and-match with your various objects to achieve a large  amount of visual variety without much code.</p>
+
+  <p>Separating structure and skin can also mean using classes to name your objects and their &gt; components, rather than relying solely on the semantics of HTML. For example, the media  object is named with <code class="language-plaintext highlighter-rouge">class="media"</code>, and its components are named with <code class="language-plaintext highlighter-rouge">class="img"</code> (for the image/video component) and <code class="language-plaintext highlighter-rouge">class="bd"</code> (for the body/text component).</p>
+
+  <p>By referencing these classes in your stylesheets (say, rather than directly styling the <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> element), your HTML can be flexible. For instance, if a new media element were to  take off in the next few years (e.g. <code class="language-plaintext highlighter-rouge">&lt;svg&gt;</code>), it could be integrated into the HTML without  having to touch the CSS.</p>
+
+  <p><strong>Separate container and content</strong></p>
+
+  <p>Essentially, this means “rarely use location-dependent styles”. An object should look the  same no matter where you put it. So instead of styling a specific <code class="language-plaintext highlighter-rouge">&lt;h2&gt;</code> with <code class="language-plaintext highlighter-rouge">.myObject h2 {...}</code>, create and apply a class that describes the <code class="language-plaintext highlighter-rouge">&lt;h2&gt;</code> in question, like <code class="language-plaintext highlighter-rouge">&lt;h2 class="category"&gt;</code>.</p>
+
+  <p>This gives you the assurance that: (1) all unclassed <code class="language-plaintext highlighter-rouge">&lt;h2&gt;</code>s will look the same; (2) all elements with the category class (called a mixin) will look the same; and 3) you won’t need to create an override style for the case when you actually do want <code class="language-plaintext highlighter-rouge">.myObject h2</code> to look like the normal <code class="language-plaintext highlighter-rouge">&lt;h2&gt;</code>.</p>
+</blockquote>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/7451831" width="580" height="480" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""> </iframe>
+<div style="margin-bottom:5px"> <strong> <a href="https://es.slideshare.net/stubbornella/our-best-practices-are-killing-us" title="Our Best Practices Are Killing Us" target="_blank">Our Best Practices Are Killing Us</a> </strong> from <strong><a href="http://www.slideshare.net/stubbornella" target="_blank">Nicole Sullivan</a></strong> </div>
+
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2013/09/21/using-console-group-for-better-debugging/" data-toggle="tooltip" data-placement="top" title="Using console group for better javascript debugging">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2013/10/18/managing-css-gui/" data-toggle="tooltip" data-placement="top" title="Managing CSS 2/4 - A GUI for your app">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/fsainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://codepen.io/fsainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-codepen fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://speakerdeck.com/fsainz/">
+                          <span class="fa-stack fa-lg">
+                            <svg width="50px" height="50px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                    <path d="M256,512 C397.384903,512 512,397.384903 512,256 C512,114.615097 397.384903,0 256,0 C114.615097,0 0,114.615097 0,256 C0,397.384903 114.615097,512 256,512 Z M157.00292,151 C136.014487,151 119,168.007298 119,188.999 L119,323.001 C119,343.987268 136.020832,361 157.00292,361 L355.99708,361 C376.985513,361 394,343.992702 394,323.001 L394,188.999 C394,168.012732 376.979168,151 355.99708,151 L157.00292,151 Z M213.327471,218.914007 C201.732729,218.914007 192.333333,228.319857 192.333333,239.90541 L192.333333,272.040251 C192.333333,283.633483 201.743977,293.031654 213.327471,293.031654 L299.672529,293.031654 C311.267271,293.031654 320.666667,283.625804 320.666667,272.040251 L320.666667,239.90541 C320.666667,228.312179 311.256023,218.914007 299.672529,218.914007 L213.327471,218.914007 Z M210.470588,255.972831 L247.529412,237.639497 L247.529412,274.306164 L210.470588,255.972831 Z M264.279134,274.502243 L264.279134,237.443419 L300.945801,255.972831 L264.279134,274.502243 Z" id="sliderdeck" fill="#404040" sketch:type="MSShapeGroup"></path>
+                                </g>
+                            </svg>
+                          </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://fsainz.tumblr.com/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-tumblr fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://de.linkedin.com/in/fernandosainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="mailto:info@fsainz.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                  Copyright &copy; fsainz 2026
+                  <br />
+                  Theme adapted from <a class='text-muted' href="https://github.com/IronSummitMedia/startbootstrap-clean-blog-jekyll">startbootstrap-clean-blog-jekyll</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+<script src="../js/lightgallery-all.min.js"></script>
+
+<script>
+  
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jquery Faux Crop Example</title>
+    <style type="text/css">
+      body{
+        background-color:#EBEFF3;
+        font-family: Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+      #content{
+        max-width: 800px;
+        margin: 40px auto;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 50px 80px;
+      }
+      #example{
+        position:relative;
+      }
+      #example_A_original_crop{
+        position: absolute;
+        width: 402px;
+        height: 402px;
+        border: 2px solid rgb(64, 88, 216);
+        top: 0;
+        left: 197px;
+        background: rgba(64, 88, 216, 0.3);
+      }
+      #example_B_original_crop{
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        border: 2px solid rgb(238, 131, 15);
+        top: 140px;
+        left: 40px;
+        background: rgba(238, 131, 15, 0.3);
+      }
+      .example_caption{
+        position:absolute;
+        bottom:5px;
+        left:5px;
+        color:#fff;
+        font-size:12px;
+      }
+      .media{
+        width:200px;
+        height:200px;
+        float:right;
+        margin-left:40px;
+      }
+      #fork_on_github{
+        background:#444;
+        font-weight:bold;
+        color:#FFF;
+        padding:5px 10px;
+        text-decoration: none;
+        border-radius: 3px;
+        font-size:14px;
+        float:right;
+      }
+      h1{
+        margin:0;
+        float:left;
+      }
+      .info{
+        background:rgb(225, 225, 250);
+        margin: 10 0;
+        padding:5px;
+        font-size:14px;
+      }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/faux_crop.js"></script>
+    <script type="text/javascript">
+      $(function(){
+
+        image_path = "img/example_image.jpg";
+        width = 800;
+        height = 406;
+        target_size = 200;
+        original_crop_x = 40;
+        original_crop_y = 140;
+        original_crop_size = 130;
+
+        $("#example_A").faux_crop({
+          image_path  : image_path,
+          width       : width,
+          height      : height,
+          target_size : target_size
+        })
+
+        $("#example_B").faux_crop({
+          image_path         : image_path,
+          width              : width,
+          height             : height,
+          target_size        : target_size,
+          original_crop_x    : original_crop_x,
+          original_crop_y    : original_crop_y,
+          original_crop_size : original_crop_size
+        })
+        $("#c").faux_crop();
+
+
+      })
+    </script>
+  </head>
+  <body>
+    <div id='content'>
+      <h1>Jquery Faux Crop</h1>
+      <a href="https://github.com/fsainz/jqueryFauxCrop" id="fork_on_github">Fork on Github</a>
+      <br style='clear:both' />
+
+      <p>This plugins resizes and positions the image inside a container to act as if it had been cropped. It finds the largest centered square area on the original image and fits it into the thumbnail wrapper. You can also pass crop coordinates as you would do with an image processor.</p>
+     <p class='info'>
+     If you rather render the necessary markup from a rails helper (without using javascript at all), check <strong><a href="rails_helper_faux_crop.html">RailsHelperFauxCrop</a></strong>
+     </p>
+
+      <br />
+      <br />
+      <div id="example">
+        <img src="img/example_image.jpg" />
+        <div id="example_A_original_crop">
+          <div class='example_caption'>
+            <strong>example A</strong>
+          </div>
+        </div>
+        <div id="example_B_original_crop">
+          <div class='example_caption'>
+            <strong> example B </strong>
+            <br />
+            crop_x:40
+            <br />
+            crop_y:140
+            <br />
+            crop_size:130
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="media" id="example_A">
+      </div>
+      <h4>Basic Usage: Centered thumbnail</h4>
+      <pre>
+      <code>
+        $("#example_A").faux_crop({
+          image_path  : "example_image.jpg",
+          width       : 800, // image original width
+          height      : 406, // image orinal height
+          target_size : 200  // thumbnail size
+        })
+      </code>
+      </pre>
+      <br style='clear:both' />
+      <div class="media" id="example_B">
+      </div>
+      <h4>Using Crop Coordinates</h4>
+      <pre>
+      <code>
+        $("#example_B").faux_crop({
+          image_path         : "example_image.jpg",
+          width              : 800,
+          height             : 406,
+          target_size        : 200
+          original_crop_x    : 40,
+          original_crop_y    : 140,
+          original_crop_size : 130
+        })
+      </code>
+      </pre>
+      <br style='clear:both' />
+      <h4>Data attributes</h4>
+      You can either pass the options when calling the function or write them as data attributes on the element:
+      <br />
+      <br />
+      <code>
+&lt;div class='media' <strong>data-image-path</strong>=&quot;example_image.jpg&quot; <strong>data-width</strong>=&quot;800&quot; <strong>data-height</strong>=&quot;406&quot; <strong>data-target-size</strong>=&quot;200&quot; <strong>data-original-crop-x</strong>=&quot;40&quot; <strong>data-original-crop-y</strong>=&quot;140&quot; <strong>data-original-crop-size</strong>=&quot;130&quot;&gt;&lt;/div&gt;
+      </code>
+      <br />
+      <br />
+      <br />
+      <h4>Limitations</h4>
+      <ul>
+        <li>Tested on the good browsers and IE8+</li>
+        <li>Meant for square thumbnails</li>
+        <li>It's not responsive</li>
+        <li>This plugin is a proof of concept. If you are looking for something better take a look at <a href='https://github.com/karacas/imgLiquid'>karacas/imgLiquid</a> and <a href='https://github.com/VuongN/jQuery-Fakecrop'>VuongN/jQuery-Fakecrop</a>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rails Helper Faux Crop Example</title>
+    <style type="text/css">
+      body{
+        background-color:#EBEFF3;
+        font-family: Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+      #content{
+        max-width: 800px;
+        margin: 40px auto;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 50px 80px;
+      }
+      #example{
+        position:relative;
+      }
+      #example_A_original_crop{
+        position: absolute;
+        width: 402px;
+        height: 402px;
+        border: 2px solid rgb(64, 88, 216);
+        top: 0;
+        left: 197px;
+        background: rgba(64, 88, 216, 0.3);
+      }
+      #example_B_original_crop{
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        border: 2px solid rgb(238, 131, 15);
+        top: 140px;
+        left: 40px;
+        background: rgba(238, 131, 15, 0.3);
+      }
+      .example_caption{
+        position:absolute;
+        bottom:5px;
+        left:5px;
+        color:#fff;
+        font-size:12px;
+      }
+      .media{
+        width:200px;
+        height:200px;
+        float:right;
+        margin-left:40px;
+      }
+      #fork_on_github{
+        background:#444;
+        font-weight:bold;
+        color:#FFF;
+        padding:5px 10px;
+        text-decoration: none;
+        border-radius: 3px;
+        font-size:14px;
+        float:right;
+      }
+      h1{
+        margin:0;
+        float:left;
+      }
+      .info{
+        background:rgb(225, 225, 250);
+        margin: 10 0;
+        padding:5px;
+        font-size:14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='content'>
+      <h1>Rails Helper Faux Crop</h1>
+      <a href="https://github.com/fsainz/RailsHelperFauxCrop" id="fork_on_github">Fork on Github</a>
+      <br style='clear:both' />
+
+      <p>This plugins resizes and positions the image inside a container to act as if it had been cropped. It finds the largest centered square area on the original image and fits it into the thumbnail wrapper. You can also pass crop coordinates as you would do with an image processor.</p>
+     <p class='info'>
+     If you rather render the necessary markup from a jquery plugin, check <strong><a href="jquery_faux_crop.html">JqueryFauxCrop</a></strong>
+     </p>
+
+      <br />
+      <br />
+      <div id="example">
+        <img src="img/example_image.jpg" />
+        <div id="example_A_original_crop">
+          <div class='example_caption'>
+            <strong>example A</strong>
+          </div>
+        </div>
+        <div id="example_B_original_crop">
+          <div class='example_caption'>
+            <strong> example B </strong>
+            <br />
+            crop_x:40
+            <br />
+            crop_y:140
+            <br />
+            crop_size:130
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="media" id="example_A" style="position: relative; overflow:hidden; width:200.0px; height:200.0px"><img src="img/example_image.jpg" style="height:200.0px; width:auto; max-width:none;margin-left:-97.0px; display:block"></div>
+      <h4>Basic Usage: Centered thumbnail</h4>
+      <pre>
+      <code>
+      <%= faux_crop(
+        "example_image.jpg", # image path
+        800, # image width
+        406, # image height
+        200 # target size
+        ) %>
+      </code>
+      </pre>
+      <br style='clear:both' />
+      <div  class="media" id="example_B" style="position: relative; overflow:hidden; width:200.0px; height:200.0px"><img src="img/example_image.jpg" style="width:1230.769230769231px; max-width:none;height:auto; margin-left:-61.53846153846154px; margin-top:-215.3846153846154px; display:block;"></div>
+      <h4>Using Crop Coordinates</h4>
+      <pre>
+      <code>
+      <%= faux_crop(
+        "example_image.jpg", # image path
+        800, # image width
+        406, # image height
+        200, # target size
+        40,  # crop x offset
+        140, # crop y offset
+        130  # crop size
+        ) %>
+      </code>
+      </pre>
+      <br style='clear:both' />
+      <h4>Limitations</h4>
+      <ul>
+        <li>Tested on the good browsers and IE8+</li>
+        <li>Meant for square thumbnails</li>
+        <li>It's not responsive</li>
+        <li>This plugin is a just a proof of concept.</a>
+      </ul>
+    </div>
+  </body>
+</html>

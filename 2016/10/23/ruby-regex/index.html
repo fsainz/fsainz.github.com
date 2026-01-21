@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fernando Sainz personal blog">
+
+    <title>Ruby Regular Expressions - fsainz</title>
+
+    <link rel="canonical" href="http://www.fsainz.com/2016/10/23/ruby-regex/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <link rel="stylesheet" href="../css/lightgallery.min.css" />
+    <link rel="stylesheet" href="../css/lg-transitions.min.css" />
+    <link rel="stylesheet" href="../css/lightgallery-custom.css" />
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target="#bs-example-navbar-collapse-1"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">fsainz</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        
+        <li>
+          <a href="/about/">About</a>
+        </li>
+        
+        <li>
+          <a href="/projects/">projects</a>
+        </li>
+        
+        <li>
+          <a href="//www.fsainz.com/bonn">Bonn</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h1 id="ruby-regular-expressions">Ruby Regular Expressions</h1>
+
+<p class="meta">October 23rd, 2016 - Bonn</p>
+
+<p>I wrote this reference as a summary / cheatsheet about how to use regular expressions in ruby along with some tips</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">### DIFFERENT WAYS OF MATCHING</span>
+
+<span class="s2">"Use the force"</span> <span class="o">=~</span><span class="sr">/force/</span> <span class="c1"># =&gt; 8   index of the first occurrence of the word</span>
+<span class="s2">"Use the fork"</span> <span class="o">=~</span> <span class="sr">/force/</span> <span class="c1"># =&gt; nil</span>
+<span class="s2">"Use the fork"</span> <span class="o">!~</span> <span class="sr">/force/</span> <span class="c1"># =&gt; true</span>
+
+<span class="s2">"Use the force"</span><span class="p">[</span><span class="sr">/force/</span><span class="p">]</span> <span class="c1"># =&gt; "force"</span>
+<span class="s2">"Use the fork"</span><span class="p">[</span><span class="sr">/force/</span><span class="p">]</span>  <span class="c1"># =&gt; nil</span>
+
+<span class="s2">"Use the force"</span><span class="p">.</span><span class="nf">match</span> <span class="sr">/force/</span>  <span class="c1">#=&gt; #&lt;MatchData "force"&gt;</span>
+<span class="s2">"Use the fork"</span><span class="p">.</span><span class="nf">match</span> <span class="sr">/force/</span> <span class="c1">#=&gt; nil</span>
+
+<span class="s2">"Use the force"</span><span class="p">[</span><span class="sr">/(the) force/</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># =&gt; "the" # first capture (index of MatchData)</span>
+<span class="s2">"Number 123"</span><span class="p">[</span><span class="sr">/(?&lt;number&gt;\d+)/</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s2">"123"</span>
+
+<span class="c1"># (!) str =~ regexp is not exactly the same as regexp =~ str.</span>
+<span class="c1"># Strings captured from named capture groups are assigned to local variables only in the second case</span>
+<span class="sr">/(?&lt;number&gt;\d+)/</span> <span class="o">=~</span> <span class="s2">"Number 123"</span><span class="p">;</span> <span class="n">number</span> <span class="c1">#=&gt; "123"  # This works</span>
+<span class="s2">"Number 123"</span> <span class="o">=~</span> <span class="sr">/(?&lt;number&gt;\d+)/</span><span class="p">;</span> <span class="n">number</span> <span class="c1"># =&gt; NameError: undefined local variable</span>
+<span class="s2">"Number 123"</span><span class="p">[</span><span class="sr">/(?&lt;number&gt;\d+)/</span><span class="p">];</span> <span class="n">number</span> <span class="c1"># =&gt; NameError: undefined local variable</span>
+
+<span class="c1"># Example of named captures in Rubular =&gt; http://rubular.com/r/SZDykFX2nr</span>
+<span class="c1"># Rubular is awesome</span>
+
+<span class="c1">#### GLOBAL VARIABLES / Regexp.last_match</span>
+<span class="c1"># These matching operations leave us with some global variables with the result of the match, but</span>
+<span class="c1"># is better to use Regexp.last_match for clarity</span>
+<span class="n">str</span> <span class="o">=</span> <span class="s2">"Lord of the 7 Kingdoms, and Protector of the Realm"</span>
+<span class="n">str</span><span class="p">[</span><span class="sr">/the (\d+) kingdoms?+/i</span><span class="p">]</span>
+<span class="n">str</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="sr">/the (\d+) kingdoms?+/i</span><span class="p">)</span>
+<span class="n">str</span> <span class="o">=~</span> <span class="sr">/the (\d+) kingdoms?+/i</span>
+
+<span class="no">Regexp</span><span class="p">.</span><span class="nf">last_match</span>    <span class="c1"># same as $~                  # =&gt; #&lt;MatchData "the 7 Kingdoms" 1:"7"&gt;</span>
+<span class="no">Regexp</span><span class="p">.</span><span class="nf">last_match</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># matched string, same as $&amp;  # =&gt; "the 7 Kingdoms"</span>
+<span class="no">Regexp</span><span class="p">.</span><span class="nf">last_match</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># first capture, same as $1   # =&gt; 7</span>
+<span class="no">Regexp</span><span class="p">.</span><span class="nf">last_match</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="c1"># nth capture, same as $n</span>
+<span class="no">Regexp</span><span class="p">.</span><span class="nf">last_match</span><span class="p">.</span><span class="nf">pre_match</span>   <span class="c1"># same as $`         # =&gt; "Lord of "</span>
+<span class="no">Regexp</span><span class="p">.</span><span class="nf">last_match</span><span class="p">.</span><span class="nf">post_match</span>  <span class="c1"># same as $'         # =&gt; ", and Protector of the Realm"</span>
+
+<span class="c1">### WORKING WITH MATCHES</span>
+<span class="n">match_data</span> <span class="o">=</span> <span class="s2">"Jack Johnson"</span><span class="p">.</span><span class="nf">match</span> <span class="sr">/(\w*)\s(\w*)/</span> <span class="c1">#=&gt; #&lt;MatchData "Jack Johnson" 1:"Jack" 2:"Johnson"&gt;</span>
+<span class="n">match_data</span><span class="p">.</span><span class="nf">to_a</span>
+<span class="c1">#=&gt; [</span>
+<span class="c1">#  [0] "Jack Johnson", # matched string</span>
+<span class="c1">#  [1] "Jack",         # first capture</span>
+<span class="c1">#  [2] "Johnson"       # second capture</span>
+<span class="c1">#]</span>
+<span class="n">match_data</span><span class="p">.</span><span class="nf">captures</span>
+<span class="c1">#=&gt; [</span>
+<span class="c1">#  [0] "Jack",</span>
+<span class="c1">#  [1] "Johnson"</span>
+<span class="c1">#]</span>
+
+<span class="n">match_data</span> <span class="o">=</span> <span class="s2">"Number 123"</span><span class="p">.</span><span class="nf">match</span> <span class="sr">/(?&lt;number&gt;\d+)/</span> <span class="c1">#=&gt; #&lt;MatchData "123" number:"123"&gt;</span>
+<span class="n">match_data</span><span class="p">[</span><span class="ss">:number</span><span class="p">]</span> <span class="c1"># =&gt; 123  # same as match_data.captures[0], match_data[1]</span>
+
+<span class="n">match_data</span><span class="p">.</span><span class="nf">captures</span>
+<span class="c1"># =&gt; ["123"]</span>
+
+<span class="n">match_data</span><span class="p">.</span><span class="nf">names</span>
+<span class="c1"># =&gt; ["number"]</span>
+
+<span class="n">match_data</span><span class="p">.</span><span class="nf">names</span><span class="p">.</span><span class="nf">zip</span><span class="p">(</span><span class="n">match_data</span><span class="p">.</span><span class="nf">captures</span><span class="p">).</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {"number"=&gt;"123"}</span>
+
+<span class="s2">"Number 123 456"</span><span class="p">.</span><span class="nf">scan</span><span class="p">(</span><span class="sr">/\d+/</span><span class="p">)</span>
+<span class="c1">#=&gt; [</span>
+<span class="c1">#  [0] "123",</span>
+<span class="c1">#  [1] "456"</span>
+<span class="c1">#]</span>
+
+<span class="s2">"Number 123 456"</span><span class="p">.</span><span class="nf">scan</span><span class="p">(</span><span class="sr">/(?&lt;number&gt;\d+)/</span><span class="p">)</span>
+<span class="c1">#=&gt; [</span>
+<span class="c1">#  [0] [</span>
+<span class="c1">#    [0] "123"</span>
+<span class="c1">#  ],</span>
+<span class="c1">#  [1] [</span>
+<span class="c1">#    [0] "456"</span>
+<span class="c1">#  ]</span>
+<span class="c1">#]</span>
+
+<span class="c1"># In this last case, the named variable is not helping much, if we do "..".scan(...){|m| ...}</span>
+<span class="c1"># that m could be a string or an array, it might be cleaner just to use Regexp.last_match within the block</span>
+
+<span class="s2">"Number 123 456"</span><span class="p">.</span><span class="nf">scan</span><span class="p">(</span><span class="sr">/(?&lt;number&gt;\d+)/</span><span class="p">){</span> <span class="nb">puts</span> <span class="no">Regexp</span><span class="p">.</span><span class="nf">last_match</span><span class="p">(</span><span class="ss">:number</span><span class="p">)</span> <span class="p">}</span>
+<span class="c1"># =&gt; 123</span>
+<span class="c1"># =&gt; 456</span>
+
+
+<span class="s2">"123 456 789"</span><span class="p">.</span><span class="nf">scan</span><span class="p">(</span><span class="sr">/(\d)(\d)(\d)/</span><span class="p">)</span>  <span class="c1">#=&gt; [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]</span>
+
+<span class="c1">### REPLACEMENTS</span>
+<span class="s2">"that man is superman"</span><span class="p">.</span><span class="nf">sub</span> <span class="sr">/man/</span><span class="p">,</span> <span class="s2">"bird"</span>   <span class="c1">#=&gt; "that bird is superman"  # replaces once</span>
+<span class="s2">"that man is superman"</span><span class="p">.</span><span class="nf">gsub</span> <span class="sr">/man/</span><span class="p">,</span> <span class="s2">"bird"</span>  <span class="c1">#=&gt; "that bird is superbird" # global sub</span>
+<span class="c1"># we also have sub!, gsub!</span>
+
+<span class="n">other</span> <span class="ss">options:
+
+</span><span class="n">str</span> <span class="o">=</span> <span class="s2">"that man is superman"</span>
+<span class="n">str</span><span class="p">[</span><span class="sr">/man/</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"man"</span>
+<span class="n">str</span> <span class="c1">#=&gt; "that bird is superman" # like sub!</span>
+
+<span class="n">str</span> <span class="o">=</span> <span class="s2">"foo bar"</span>
+<span class="n">str</span><span class="p">[</span><span class="sr">/(\w*) (\w*)/</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"baz"</span> <span class="c1"># you can target a capture</span>
+<span class="n">str</span> <span class="c1"># =&gt; "foo baz"</span>
+
+<span class="c1"># We can reference a capture with \1, \2 ...</span>
+<span class="s2">"123 456 789"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/(\d+)/</span><span class="p">,</span> <span class="s1">'[\1]'</span><span class="p">)</span> <span class="c1">#=&gt; "[123] [456] [789]"</span>
+
+<span class="c1"># For more complex changes we can use a block</span>
+<span class="s2">"WHAT'S GOING ON?"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/\S*/</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">s</span><span class="o">|</span> <span class="n">s</span><span class="p">.</span><span class="nf">downcase</span> <span class="p">}</span> <span class="c1"># =&gt; "what's going on?"</span>
+<span class="c1"># All of them do the same:</span>
+<span class="s2">"123 456 789"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/(\d+)/</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="n">m</span><span class="p">.</span><span class="nf">to_i</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="s2">"123 456 789"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/(\d+)/</span><span class="p">)</span> <span class="p">{</span> <span class="vg">$1</span><span class="p">.</span><span class="nf">to_i</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="s2">"123 456 789"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/(\d+)/</span><span class="p">)</span> <span class="p">{</span> <span class="no">Regexp</span><span class="p">.</span><span class="nf">last_match</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nf">to_i</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="s2">"123 456 789"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/(?&lt;digits&gt;\d+)/</span><span class="p">)</span> <span class="p">{</span> <span class="vg">$~</span><span class="p">[</span><span class="ss">:digits</span><span class="p">].</span><span class="nf">to_i</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="s2">"123 456 789"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/(?&lt;digits&gt;\d+)/</span><span class="p">)</span> <span class="p">{</span> <span class="no">Regexp</span><span class="p">.</span><span class="nf">last_match</span><span class="p">(</span><span class="ss">:digits</span><span class="p">).</span><span class="nf">to_i</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="c1">#=&gt; "246 912 1578"</span>
+
+<span class="c1"># You can also pass a hash to espicify matched_string =&gt; replacement pairs, such as:</span>
+<span class="s2">"Mr"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/M(iste)?r/</span>  <span class="s1">'Mister'</span> <span class="o">=&gt;</span> <span class="s1">'Doctor'</span><span class="p">,</span> <span class="s1">'Mr'</span> <span class="o">=&gt;</span> <span class="s1">'Dr'</span><span class="p">)</span>     <span class="c1">#=&gt; Dr</span>
+<span class="s2">"Mister"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/M(iste)?r/</span><span class="p">,</span> <span class="s1">'Mister'</span> <span class="o">=&gt;</span> <span class="s1">'Doctor'</span><span class="p">,</span> <span class="s1">'Mr'</span> <span class="o">=&gt;</span> <span class="s1">'Dr'</span><span class="p">)</span> <span class="c1">#=&gt; Doctor</span>
+
+<span class="c1"># More recomendations from our guidelines:</span>
+<span class="n">url</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="s1">'http://'</span><span class="p">,</span> <span class="s1">'https://'</span><span class="p">)</span> <span class="c1"># bad, there is only one substitution, use sub</span>
+<span class="n">url</span><span class="p">.</span><span class="nf">sub</span><span class="p">(</span><span class="s1">'http://'</span><span class="p">,</span> <span class="s1">'https://'</span><span class="p">)</span>  <span class="c1"># good</span>
+<span class="n">str</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="s1">'-'</span><span class="p">,</span> <span class="s1">'_'</span><span class="p">)</span> <span class="c1"># bad - there is a more specialized / performant alternative</span>
+<span class="n">str</span><span class="p">.</span><span class="nf">tr</span><span class="p">(</span><span class="s1">'-'</span><span class="p">,</span> <span class="s1">'_'</span><span class="p">)</span>   <span class="c1"># good</span>
+
+
+<span class="c1"># A BUNCH OF USEFUL METHODS AND TIPS</span>
+<span class="c1"># partition</span>
+<span class="c1"># &gt;&gt; Searches sep or pattern (regexp) in the string and returns the part before it, the match, and the part after it.</span>
+<span class="c1"># &gt;&gt; If it is not found, returns two empty strings and str.</span>
+
+<span class="s2">"hello"</span><span class="p">.</span><span class="nf">partition</span><span class="p">(</span><span class="s2">"l"</span><span class="p">)</span>         <span class="c1">#=&gt; ["he", "l", "lo"]</span>
+<span class="s2">"hello"</span><span class="p">.</span><span class="nf">partition</span><span class="p">(</span><span class="sr">/l/</span><span class="p">)</span>         <span class="c1">#=&gt; ["he", "l", "lo"]</span>
+<span class="s2">"hello"</span><span class="p">.</span><span class="nf">partition</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span>         <span class="c1">#=&gt; ["hello", "", ""]</span>
+
+<span class="c1"># start_with?, end_with? include?</span>
+<span class="c1"># from our guides: Prefer Ruby's Standard Library methods (start_with?, end_with?) over ActiveSupport aliases (starts_with?, ends_with?)</span>
+<span class="s2">"Use the force"</span><span class="p">.</span><span class="nf">start_with?</span><span class="p">(</span><span class="s2">"Use"</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+<span class="s2">"Use the force"</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="s2">"the"</span><span class="p">)</span>  <span class="c1"># =&gt; true</span>
+<span class="s2">"Use the force"</span><span class="p">.</span><span class="nf">end_with?</span><span class="p">(</span><span class="s2">"force"</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+
+<span class="c1"># Regex equality ===</span>
+<span class="sr">/hello/</span> <span class="o">===</span> <span class="s2">"hello"</span> <span class="c1"># =&gt; true   (but "hello" === /hello/ =&gt; false)</span>
+<span class="c1"># Is meant to be used within case statements</span>
+<span class="n">str</span> <span class="o">=</span> <span class="s2">"HELLO"</span>
+<span class="k">case</span> <span class="n">str</span>
+<span class="k">when</span> <span class="sr">/^[a-z]*$/</span><span class="p">;</span> <span class="nb">puts</span> <span class="s2">"Lower case"</span>
+<span class="k">when</span> <span class="sr">/^[A-Z]*$/</span><span class="p">;</span> <span class="nb">puts</span> <span class="s2">"Upper case"</span>
+<span class="k">else</span><span class="p">;</span>            <span class="nb">puts</span> <span class="s2">"Mixed case"</span>
+<span class="k">end</span>
+<span class="c1">#=&gt; "Upper case"</span>
+
+<span class="c1"># From our guides:</span>
+<span class="c1"># Use %r only for regular expressions matching at least one '/' character</span>
+
+<span class="sr">%r{</span><span class="se">\s</span><span class="sr">+}</span> <span class="c1"># bad</span>
+<span class="sr">%r{^/(.*)$}</span> <span class="c1"># good</span>
+<span class="sr">%r{^/blog/2011/(.*)$}</span> <span class="c1"># good</span>
+
+<span class="c1"># Use non-capturing groups when you don't use the captured result</span>
+<span class="sr">/(first|second)/</span> <span class="c1"># bad</span>
+<span class="sr">/(?:first|second)/</span> <span class="c1"># good</span>
+
+<span class="c1">#Be careful with ^ and $ as they match start/end of line, not string endings.</span>
+<span class="c1"># If you want to match the whole string use: \A and \z (not to be confused with \Z which is the equivalent of /\n?\z/)</span>
+
+<span class="n">string</span> <span class="o">=</span> <span class="s2">"some injection</span><span class="se">\n</span><span class="s2">username"</span>
+<span class="n">string</span><span class="p">[</span><span class="sr">/^username$/</span><span class="p">]</span>   <span class="c1"># matches</span>
+<span class="n">string</span><span class="p">[</span><span class="sr">/\Ausername\z/</span><span class="p">]</span> <span class="c1"># doesn't match</span>
+
+<span class="c1">#Use x modifier for complex regexps. This makes them more readable and you can add some useful comments. Just be careful as spaces are ignored</span>
+<span class="n">regexp</span> <span class="o">=</span> <span class="sr">/
+  start         # some text
+  \s            # white space char, you could also use [ ]
+  (group)       # first group
+  (?:alt1|alt2) # some alternation
+  end
+/x</span>
+
+<span class="c1">#The interpolation accepts anything that can be stringified. Even better, I can use another regexp.</span>
+<span class="no">GITHUB_COM</span> <span class="o">=</span> <span class="sr">%r{https?://(?:www</span><span class="se">\.</span><span class="sr">)?github</span><span class="se">\.</span><span class="sr">com}i</span>
+<span class="sr">%r{</span><span class="se">\A</span><span class="si">#{</span><span class="no">GITHUB_COM</span><span class="si">}</span><span class="sr">/([^/]+)/?</span><span class="se">\z</span><span class="sr">}o</span>  <span class="c1"># The o flag at the end optimizes the regexp by only doing the interpolation once. Don’t use o with dynamic content.</span>
+
+<span class="c1"># Name your matches.</span>
+<span class="c1"># Sometimes a single regexp will capture several pieces of information. Instead of capturing a username consider the case where I want a username and project.</span>
+<span class="n">r</span> <span class="o">=</span> <span class="sr">%r{</span><span class="se">\A</span><span class="si">#{</span><span class="no">GITHUB_COM</span><span class="si">}</span><span class="sr">/([^/]+)/([^/]+)/?</span><span class="se">\z</span><span class="sr">}o</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s1">'http://github.com/AaronLasseigne/dotfiles'</span><span class="p">)</span> <span class="c1">#=&gt; #&lt;MatchData "http://github.com/AaronLasseigne/dotfiles" 1:"AaronLasseigne" 2:"dotfiles"&gt;</span>
+<span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#=&gt; "AaronLasseigne"</span>
+<span class="n">m</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="c1">#=&gt; "dotfiles"</span>
+
+<span class="c1"># compared to:</span>
+<span class="n">r</span> <span class="o">=</span> <span class="sr">%r{</span><span class="se">\A</span><span class="si">#{</span><span class="no">GITHUB_COM</span><span class="si">}</span><span class="sr">/(?&lt;username&gt;[^/]+)/(?&lt;project&gt;[^/]+)/?</span><span class="se">\z</span><span class="sr">}o</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s1">'http://github.com/AaronLasseigne/dotfiles'</span><span class="p">)</span> <span class="c1">#=&gt; #&lt;MatchData "http://github.com/AaronLasseigne/dotfiles" username:"AaronLasseigne" project:"dotfiles"&gt;</span>
+<span class="n">m</span><span class="p">[</span><span class="ss">:username</span><span class="p">]</span> <span class="c1">#=&gt; "AaronLasseigne"</span>
+<span class="n">m</span><span class="p">[</span><span class="ss">:project</span><span class="p">]</span>  <span class="c1">#=&gt; "dotfiles"</span>
+
+<span class="c1"># NEW IN RUBY 2.4</span>
+
+<span class="c1"># Regexp#match? 3x times faster than ===, =~, match; returns a boolean and does not set global variables</span>
+<span class="sr">/^foo (\w+)$/</span><span class="p">.</span><span class="nf">match?</span><span class="p">(</span><span class="s1">'foo wow'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+<span class="vg">$~</span>                              <span class="c1"># =&gt; nil</span>
+
+<span class="c1"># MatchData#named_captures, #values_at</span>
+<span class="n">pattern</span>  <span class="o">=</span> <span class="sr">/(?&lt;first_name&gt;John) (?&lt;last_name&gt;\w+)/</span>
+<span class="n">pattern</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s1">'John Backus'</span><span class="p">).</span><span class="nf">named_captures</span> <span class="c1"># =&gt; { "first_name" =&gt; "John", "last_name" =&gt; "Backus" }</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="sr">/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/</span>
+<span class="n">pattern</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s1">'2016-02-01'</span><span class="p">).</span><span class="nf">values_at</span><span class="p">(</span><span class="ss">:year</span><span class="p">,</span> <span class="ss">:month</span><span class="p">)</span> <span class="c1"># =&gt; ["2016", "02"]</span>
+
+<span class="c1">### REFERENCES AND ADVANCED TOPICS (CONDITIONALS, BACKTRACKING, ATOMIC...)</span>
+<span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">aaronlasseigne</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="mi">2016</span><span class="o">/</span><span class="mo">07</span><span class="o">/</span><span class="mi">08</span><span class="o">/</span><span class="mi">5</span><span class="o">-</span><span class="n">tips</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">writing</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">legible</span><span class="o">-</span><span class="n">regexp</span><span class="o">/</span>
+<span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">blog</span><span class="p">.</span><span class="nf">honeybadger</span><span class="p">.</span><span class="nf">io</span><span class="o">/</span><span class="n">using</span><span class="o">-</span><span class="n">conditionals</span><span class="o">-</span><span class="n">inside</span><span class="o">-</span><span class="n">ruby</span><span class="o">-</span><span class="n">regular</span><span class="o">-</span><span class="n">expressions</span><span class="o">/</span>
+<span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">idiosyncratic</span><span class="o">-</span><span class="n">ruby</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="mi">11</span><span class="o">-</span><span class="n">regular</span><span class="o">-</span><span class="n">extremism</span><span class="p">.</span><span class="nf">html</span>
+<span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">aaronlasseigne</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="mi">2016</span><span class="o">/</span><span class="mo">06</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="n">proper</span><span class="o">-</span><span class="n">regexp</span><span class="o">-</span><span class="n">anchoring</span><span class="o">/</span>
+<span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">revelry</span><span class="p">.</span><span class="nf">co</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">tip</span><span class="o">-</span><span class="n">using</span><span class="o">-</span><span class="n">regexp</span><span class="o">-</span><span class="n">replace</span><span class="o">-</span><span class="n">last</span><span class="o">-</span><span class="n">occurrence</span><span class="o">-</span><span class="n">ruby</span><span class="o">/</span>
+<span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">bbatsov</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="n">style</span><span class="o">-</span><span class="n">guide</span><span class="c1">#regular-expressions</span>
+<span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">batsov</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">articles</span><span class="o">/</span><span class="mi">2013</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mo">03</span><span class="o">/</span><span class="n">using</span><span class="o">-</span><span class="n">rubys</span><span class="o">-</span><span class="nb">gsub</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="nb">hash</span><span class="o">/</span>
+<span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">stackoverflow</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">questions</span><span class="o">/</span><span class="mi">1732348</span><span class="o">/</span><span class="n">regex</span><span class="o">-</span><span class="n">match</span><span class="o">-</span><span class="nb">open</span><span class="o">-</span><span class="n">tags</span><span class="o">-</span><span class="n">except</span><span class="o">-</span><span class="n">xhtml</span><span class="o">-</span><span class="nb">self</span><span class="o">-</span><span class="n">contained</span><span class="o">-</span><span class="n">tags</span><span class="o">/</span><span class="mi">1732454</span><span class="c1">#1732454</span></code></pre></figure>
+
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/06/20/nested-hash/" data-toggle="tooltip" data-placement="top" title="Infinite nested hash">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/10/24/structure-sql/" data-toggle="tooltip" data-placement="top" title="From schema.rb to structure sql">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/fsainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://codepen.io/fsainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-codepen fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://speakerdeck.com/fsainz/">
+                          <span class="fa-stack fa-lg">
+                            <svg width="50px" height="50px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                    <path d="M256,512 C397.384903,512 512,397.384903 512,256 C512,114.615097 397.384903,0 256,0 C114.615097,0 0,114.615097 0,256 C0,397.384903 114.615097,512 256,512 Z M157.00292,151 C136.014487,151 119,168.007298 119,188.999 L119,323.001 C119,343.987268 136.020832,361 157.00292,361 L355.99708,361 C376.985513,361 394,343.992702 394,323.001 L394,188.999 C394,168.012732 376.979168,151 355.99708,151 L157.00292,151 Z M213.327471,218.914007 C201.732729,218.914007 192.333333,228.319857 192.333333,239.90541 L192.333333,272.040251 C192.333333,283.633483 201.743977,293.031654 213.327471,293.031654 L299.672529,293.031654 C311.267271,293.031654 320.666667,283.625804 320.666667,272.040251 L320.666667,239.90541 C320.666667,228.312179 311.256023,218.914007 299.672529,218.914007 L213.327471,218.914007 Z M210.470588,255.972831 L247.529412,237.639497 L247.529412,274.306164 L210.470588,255.972831 Z M264.279134,274.502243 L264.279134,237.443419 L300.945801,255.972831 L264.279134,274.502243 Z" id="sliderdeck" fill="#404040" sketch:type="MSShapeGroup"></path>
+                                </g>
+                            </svg>
+                          </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://fsainz.tumblr.com/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-tumblr fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://de.linkedin.com/in/fernandosainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="mailto:info@fsainz.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                  Copyright &copy; fsainz 2026
+                  <br />
+                  Theme adapted from <a class='text-muted' href="https://github.com/IronSummitMedia/startbootstrap-clean-blog-jekyll">startbootstrap-clean-blog-jekyll</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+<script src="../js/lightgallery-all.min.js"></script>
+
+<script>
+  
+</script>
+
+
+</body>
+
+</html>

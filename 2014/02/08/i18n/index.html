@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fernando Sainz personal blog">
+
+    <title>Detecting untranslated keys in Rails - fsainz</title>
+
+    <link rel="canonical" href="http://www.fsainz.com/2014/02/08/i18n/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <link rel="stylesheet" href="../css/lightgallery.min.css" />
+    <link rel="stylesheet" href="../css/lg-transitions.min.css" />
+    <link rel="stylesheet" href="../css/lightgallery-custom.css" />
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target="#bs-example-navbar-collapse-1"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">fsainz</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        
+        <li>
+          <a href="/about/">About</a>
+        </li>
+        
+        <li>
+          <a href="/projects/">projects</a>
+        </li>
+        
+        <li>
+          <a href="//www.fsainz.com/bonn">Bonn</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h1 id="detecting-untranslated-keys-in-rails">Detecting untranslated keys in Rails</h1>
+
+<p class="meta">February 8th, 2014 - Göttingen</p>
+
+<p>In our last project we are using multiple techniques to avoid deploying with untranslated keys.
+Quite often we put off the translations to just before committing since it can get really cumbersome and break your flow.</p>
+
+<p>One approach is to start those strings with <em>i19</em> in order to search the project folder for that key (‘i18’ proved quickly to be a bad idea), but this way you don’t find strings that you forgot to translate to all the languages and those with a wrong scope/name.</p>
+
+<p>To make sure that you’ve got a translation for every given language, the gem <a href="https://github.com/tigrish/i18n-spec" target="_blank"> i18n-spec</a> it’s pretty handy, it checks that your locale files define the same set of keys.</p>
+
+<p>For example, if I wanted to check that my locale files <em>preferences.es.yml</em>, <em>frontpage.es.yml</em> and <em>preferences.en.yml</em>, <em>frontpage.en.yml</em> are consistent between them, I could add this test:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">describe</span> <span class="s1">'i18n'</span> <span class="k">do</span>
+  <span class="p">[</span><span class="s2">"preferences"</span><span class="p">,</span> <span class="s2">"frontpage"</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file_prefix</span><span class="o">|</span>
+    <span class="n">describe</span> <span class="s2">"config/locales/</span><span class="si">#{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s2">.en.yml"</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_a_complete_translation_of</span> <span class="s2">"config/locales/</span><span class="si">#{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s2">.es.yml"</span> <span class="p">}</span>
+    <span class="k">end</span>
+    <span class="n">describe</span> <span class="s2">"config/locales/</span><span class="si">#{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s2">.es.yml"</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_a_complete_translation_of</span> <span class="s2">"config/locales/</span><span class="si">#{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s2">.en.yml"</span> <span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>You could tell rails to raise an exception whenever a missing translation occurs (see <a href="http://guides.rubyonrails.org/i18n.html#using-different-exception-handlers" target="_blank">http://guides.rubyonrails.org/i18n.html#using-different-exception-handlers</a>), this can be good for testing but we don’t use it in production (where we rather avoid showing a 500 for a missing key), not even in development since it could be really annoying (especially considering that the change in the locale files take sometime to ‘reload’, and sometimes you have to switch to another language in order to force it)</p>
+
+<p><strong>In development</strong> we take advantage of our <em>dev bar</em> (a fixed toolbar with shortcuts and useful info for development) to help the missing translations to stand out. We show a warning label, add an outline class to the html element and log the name of the missing key to the console.</p>
+
+<p><img src="/img/i18.png" /></p>
+
+<p><em>in your view</em></p>
+
+<figure class="highlight"><pre><code class="language-haml" data-lang="haml"><span class="nf">#dev_tools</span>
+  <span class="nf">#translation_missing_warning</span><span class="nc">.alert-box.alert.hidden</span>
+    missing translations</code></pre></figure>
+
+<p><em>in your styles</em></p>
+
+<figure class="highlight"><pre><code class="language-sass" data-lang="sass">  <span class="nn">#dev_tools</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="mh">#DDD</span>
+    <span class="nl">border-top</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="mh">#CCC</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span>
+    <span class="nl">bottom</span><span class="p">:</span> <span class="m">0</span>
+    <span class="nl">right</span><span class="p">:</span> <span class="m">0</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">right</span>
+    <span class="nl">z-index</span><span class="p">:</span> <span class="m">9000</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">2px</span> <span class="m">20px</span>
+    <span class="nl">opacity</span><span class="p">:</span> <span class="m">0</span><span class="mi">.4</span>
+    <span class="k">&amp;</span><span class="nd">:hover</span>
+      <span class="nl">opacity</span><span class="p">:</span> <span class="m">1</span>
+
+  <span class="nc">.translation_missing_highlight</span>
+    <span class="nl">outline</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">red</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">119</span><span class="o">,</span> <span class="m">119</span><span class="o">,</span> <span class="m">0</span><span class="mi">.4</span><span class="p">)</span>
+    <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">4px</span> <span class="m">4px</span> <span class="m">5px</span></code></pre></figure>
+
+<p><em>in your javascript</em></p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.translation_missing</span><span class="dl">"</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">e</span><span class="p">){</span>
+      <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="dl">"</span><span class="s2">translation_missing_highlight</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Missing translation on</span><span class="dl">"</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+      <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#translation_missing_warning</span><span class="dl">"</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+    <span class="p">})</span>
+  <span class="p">});</span></code></pre></figure>
+
+<p>In order to detect missing translation coming from ajax requests you can add these lines (it only works with modern browsers, which trigger Dom insertion events)</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">    <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">body</span><span class="dl">'</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">DOMNodeInserted </span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">.translation_missing</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="dl">"</span><span class="s2">translation_missing_highlight</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Missing translation on</span><span class="dl">"</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+      <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#translation_missing_warning</span><span class="dl">"</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>  
+    <span class="p">});</span></code></pre></figure>
+
+<p>The last thing that we have is an script <strong>in production</strong> which silently sends an error to <a href="https://rollbar.com/docs/notifier/rollbar.js/">Rollbar</a> if it detects a missing key:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// (...) Rollbar app specific params</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="dl">"</span><span class="s2">env</span><span class="dl">"</span><span class="p">)</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">production</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="nx">d</span><span class="p">){</span><span class="nx">w</span><span class="p">.</span><span class="nx">onerror</span><span class="o">=</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span><span class="nx">u</span><span class="p">,</span><span class="nx">l</span><span class="p">){</span><span class="nx">_rollbar</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="na">_t</span><span class="p">:</span><span class="dl">'</span><span class="s1">uncaught</span><span class="dl">'</span><span class="p">,</span><span class="na">e</span><span class="p">:</span><span class="nx">e</span><span class="p">,</span><span class="na">u</span><span class="p">:</span><span class="nx">u</span><span class="p">,</span><span class="na">l</span><span class="p">:</span><span class="nx">l</span><span class="p">});};</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">s</span><span class="o">=</span><span class="nx">d</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">script</span><span class="dl">"</span><span class="p">);</span><span class="kd">var</span>
+    <span class="nx">f</span><span class="o">=</span><span class="nx">d</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="dl">"</span><span class="s2">script</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span><span class="nx">s</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">//d37gvrvc0wt4s1.cloudfront.net/js/1/rollbar.min.js </span><span class="dl">"</span><span class="p">;</span><span class="nx">s</span><span class="p">.</span><span class="k">async</span><span class="o">=!</span><span class="mi">0</span><span class="p">;</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="nx">f</span><span class="p">);};</span><span class="k">if</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">){</span><span class="nx">w</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">load</span><span class="dl">"</span><span class="p">,</span><span class="nx">i</span><span class="p">,</span><span class="o">!</span><span class="mi">1</span><span class="p">);}</span><span class="k">else</span><span class="p">{</span><span class="nx">w</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="dl">"</span><span class="s2">onload</span><span class="dl">"</span><span class="p">,</span><span class="nx">i</span><span class="p">);}})(</span><span class="nb">window</span><span class="p">,</span><span class="nb">document</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">report_missing_translation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">_rollbar</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="dl">'</span><span class="s1">title</span><span class="dl">'</span><span class="p">)</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> - (</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="dl">'</span><span class="s1">class</span><span class="dl">'</span><span class="p">)</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.translation_missing</span><span class="dl">"</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">e</span><span class="p">){</span> <span class="nx">report_missing_translation</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="p">})</span>
+
+  <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">body</span><span class="dl">'</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">DOMNodeInserted </span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">.translation_missing</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">report_missing_translation</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="p">});</span>
+
+<span class="p">})</span></code></pre></figure>
+
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2013/12/23/managing-css-tricks/" data-toggle="tooltip" data-placement="top" title="Managing CSS 4/4 - Box of Tricks">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2014/04/18/sharing-my-favorite-podcasts-with-pagebox/" data-toggle="tooltip" data-placement="top" title="Sharing my favorite podcasts with Pagebox">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/fsainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://codepen.io/fsainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-codepen fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://speakerdeck.com/fsainz/">
+                          <span class="fa-stack fa-lg">
+                            <svg width="50px" height="50px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                    <path d="M256,512 C397.384903,512 512,397.384903 512,256 C512,114.615097 397.384903,0 256,0 C114.615097,0 0,114.615097 0,256 C0,397.384903 114.615097,512 256,512 Z M157.00292,151 C136.014487,151 119,168.007298 119,188.999 L119,323.001 C119,343.987268 136.020832,361 157.00292,361 L355.99708,361 C376.985513,361 394,343.992702 394,323.001 L394,188.999 C394,168.012732 376.979168,151 355.99708,151 L157.00292,151 Z M213.327471,218.914007 C201.732729,218.914007 192.333333,228.319857 192.333333,239.90541 L192.333333,272.040251 C192.333333,283.633483 201.743977,293.031654 213.327471,293.031654 L299.672529,293.031654 C311.267271,293.031654 320.666667,283.625804 320.666667,272.040251 L320.666667,239.90541 C320.666667,228.312179 311.256023,218.914007 299.672529,218.914007 L213.327471,218.914007 Z M210.470588,255.972831 L247.529412,237.639497 L247.529412,274.306164 L210.470588,255.972831 Z M264.279134,274.502243 L264.279134,237.443419 L300.945801,255.972831 L264.279134,274.502243 Z" id="sliderdeck" fill="#404040" sketch:type="MSShapeGroup"></path>
+                                </g>
+                            </svg>
+                          </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://fsainz.tumblr.com/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-tumblr fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://de.linkedin.com/in/fernandosainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="mailto:info@fsainz.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                  Copyright &copy; fsainz 2026
+                  <br />
+                  Theme adapted from <a class='text-muted' href="https://github.com/IronSummitMedia/startbootstrap-clean-blog-jekyll">startbootstrap-clean-blog-jekyll</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+<script src="../js/lightgallery-all.min.js"></script>
+
+<script>
+  
+</script>
+
+
+</body>
+
+</html>

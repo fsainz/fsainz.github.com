@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fernando Sainz personal blog">
+
+    <title>Vagrant not updating Files - fsainz</title>
+
+    <link rel="canonical" href="http://www.fsainz.com/2014/07/25/vagrant-not-updating-files/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <link rel="stylesheet" href="../css/lightgallery.min.css" />
+    <link rel="stylesheet" href="../css/lg-transitions.min.css" />
+    <link rel="stylesheet" href="../css/lightgallery-custom.css" />
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target="#bs-example-navbar-collapse-1"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">fsainz</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        
+        <li>
+          <a href="/about/">About</a>
+        </li>
+        
+        <li>
+          <a href="/projects/">projects</a>
+        </li>
+        
+        <li>
+          <a href="//www.fsainz.com/bonn">Bonn</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h1 id="vagrant-not-updating-files">Vagrant not updating Files</h1>
+
+<p class="meta">July 25th, 2014 - Göttingen</p>
+
+<p>This has been driving us nuts for almost a year. After switching from rsynced folders to NFS - which provides a more than noticeable speed boost -, we noticed that some files didn’t update on the VM, even after a sequence of carefully executed attempts to load the new version of the file (such as reloading the page like a mad man while crying…).</p>
+
+<p>Some files appeared to be just cursed, and after using a fresh provisioned VM for some weeks things appeared to get worse. This is hard to verify since it could be a perception issue, and as a project grows with time the number of files naturally increases (which could be also playing a role). We now believe the origin of the problem to be an accumulation of corrupted cache files, which would be coherent with that observation.</p>
+
+<p>In our Rails code, models and controllers usually got updated with issues, but the css and js files - which are compiled along with multiple related files - were just a nightmare. We started adding lines like <code>console.log "random-number-123-please-work"</code> and <code>* {background: green !important}</code> just to quickly assert that the files were being reloaded, and this was so discouraging that we considered giving up on vagrant altogether.</p>
+
+<p>We have been looking for solutions without much success, I’ll list them beneath just in case they might also help.</p>
+
+<p>For us this is the magic (and quite horrible) solution:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo su
+sync; echo 3 &gt; /proc/sys/vm/drop_caches
+</code></pre></div></div>
+
+<p>We run “sync” first in order to make sure all cached objects are freed, the next command makes the kernel drop clean caches, dentries and inodes from memory (see this <a href="http://unix.stackexchange.com/questions/81960/is-sync-before-drop-caches-necessary">link</a>).</p>
+
+<p>It is unclear for us what is going on with this cached files, but cleaning them up when we detect the error works like a charm. The <em>hardcore</em> version of this command would be:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>watch -n1 "sync; echo 3 &gt; /proc/sys/vm/drop_caches"
+</code></pre></div></div>
+
+<p>Which basically flushes the cache every second. <a href="http://superuser.com/questions/242928/disable-linux-read-and-write-file-cache-on-partition/464382">Here</a> there’s a solution to disabled page caching for a given application, but I haven’t tested it yet.</p>
+
+<p>The other two possible culprits that we read about were the atomic saves in Sublime and the Sendfile option in nginx. We did as they suggested but it wasn’t enough in our case:</p>
+
+<p><br /></p>
+
+<h1 id="sublime-text-atomic-save">Sublime Text Atomic Save</h1>
+
+<p>This seems to be related to the NFS not picking up on changes in files whose size stays the same.</p>
+
+<p>To disable it, go to &gt; Preferences &gt; Settings-User  and add:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "atomic_save": false
+}
+</code></pre></div></div>
+
+<p><br />
+<br /></p>
+
+<h1 id="nginx-sendfile">Nginx Sendfile</h1>
+
+<p>Nginx has a sendfile directive that allows to use the Linux kernel’s sendfile operation to read the requested file from disk. This is known to cause problems in VMs (is even listed in the nginx pitfalls section http://wiki.nginx.org/Pitfalls).</p>
+
+<p>To disabled it just set this line in your nginx.conf:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sendfile off;
+</code></pre></div></div>
+
+<p><br />
+<br />
+—–</p>
+
+<p>After a long time searching I couldn’t come up with a better solution than dropping the caches, nor have we found a satisfactory explanation as to why this happen to us so often when updating js and css files (although we suspect that this is connected to the asset pipeline, and the multiple files concerned to update the application.js/css compiled file)</p>
+
+<p>Here are all the relevant links that I could find on this subject:</p>
+
+<ul>
+  <li><a href="https://github.com/mitchellh/vagrant/issues/2768">https://github.com/mitchellh/vagrant/issues/2768</a></li>
+  <li><a href="http://unix.stackexchange.com/questions/81960/is-sync-before-drop-caches-necessary">http://unix.stackexchange.com/questions/81960/is-sync-before-drop-caches-necessary</a></li>
+  <li><a href="http://www.linuxatemyram.com/play.html">http://www.linuxatemyram.com/play.html</a></li>
+  <li><a href="http://www.conroyp.com/2013/04/25/css-javascript-truncated-by-nginx-sendfile/">http://www.conroyp.com/2013/04/25/css-javascript-truncated-by-nginx-sendfile/</a></li>
+  <li><a href="https://www.sumardi.net/clear-nginx-cache-in-vagrant/">https://www.sumardi.net/clear-nginx-cache-in-vagrant/</a></li>
+  <li><a href="https://github.com/mitchellh/vagrant/issues/351#issuecomment-1339640">https://github.com/mitchellh/vagrant/issues/351#issuecomment-1339640</a></li>
+  <li><a href="http://serverfault.com/questions/30240/disable-all-disk-caching-for-apache2-on-linux">http://serverfault.com/questions/30240/disable-all-disk-caching-for-apache2-on-linux</a></li>
+  <li><a href="http://superuser.com/questions/242928/disable-linux-read-and-write-file-cache-on-partition">http://superuser.com/questions/242928/disable-linux-read-and-write-file-cache-on-partition</a></li>
+  <li><a href="http://serverdown.ttwait.com/que/534507">http://serverdown.ttwait.com/que/534507</a></li>
+</ul>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2014/05/10/faux-cropping/" data-toggle="tooltip" data-placement="top" title="Faux Cropping with CSS, Jquery and Rails Helpers">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2014/08/03/send/" data-toggle="tooltip" data-placement="top" title="send versus '__send__'">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/fsainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://codepen.io/fsainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-codepen fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://speakerdeck.com/fsainz/">
+                          <span class="fa-stack fa-lg">
+                            <svg width="50px" height="50px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                    <path d="M256,512 C397.384903,512 512,397.384903 512,256 C512,114.615097 397.384903,0 256,0 C114.615097,0 0,114.615097 0,256 C0,397.384903 114.615097,512 256,512 Z M157.00292,151 C136.014487,151 119,168.007298 119,188.999 L119,323.001 C119,343.987268 136.020832,361 157.00292,361 L355.99708,361 C376.985513,361 394,343.992702 394,323.001 L394,188.999 C394,168.012732 376.979168,151 355.99708,151 L157.00292,151 Z M213.327471,218.914007 C201.732729,218.914007 192.333333,228.319857 192.333333,239.90541 L192.333333,272.040251 C192.333333,283.633483 201.743977,293.031654 213.327471,293.031654 L299.672529,293.031654 C311.267271,293.031654 320.666667,283.625804 320.666667,272.040251 L320.666667,239.90541 C320.666667,228.312179 311.256023,218.914007 299.672529,218.914007 L213.327471,218.914007 Z M210.470588,255.972831 L247.529412,237.639497 L247.529412,274.306164 L210.470588,255.972831 Z M264.279134,274.502243 L264.279134,237.443419 L300.945801,255.972831 L264.279134,274.502243 Z" id="sliderdeck" fill="#404040" sketch:type="MSShapeGroup"></path>
+                                </g>
+                            </svg>
+                          </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://fsainz.tumblr.com/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-tumblr fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://de.linkedin.com/in/fernandosainz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="mailto:info@fsainz.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                  Copyright &copy; fsainz 2026
+                  <br />
+                  Theme adapted from <a class='text-muted' href="https://github.com/IronSummitMedia/startbootstrap-clean-blog-jekyll">startbootstrap-clean-blog-jekyll</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+<script src="../js/lightgallery-all.min.js"></script>
+
+<script>
+  
+</script>
+
+
+</body>
+
+</html>
