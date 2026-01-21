@@ -21,7 +21,7 @@ jobs:
 
     - name: Inject Google Maps API key into config
       env:
-        GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+        GOOGLE_MAPS_API_KEY: ${{ vars.GOOGLE_MAPS_API_KEY }}
       run: |
         sed -i "s/google_maps_api_key: \"\"/google_maps_api_key: \"${GOOGLE_MAPS_API_KEY}\"/" _config.yml
         sed -i 's/\$\$GOOGLE_MAPS_API_KEY/'"${GOOGLE_MAPS_API_KEY}"'/g' bonn/*.html bonn/de/*.html
@@ -29,7 +29,7 @@ jobs:
     - name: Build Jekyll site
       env:
         JEKYLL_ENV: production
-        GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+        GOOGLE_MAPS_API_KEY: ${{ vars.GOOGLE_MAPS_API_KEY }}
       run: bundle exec jekyll build
 
     - name: Deploy to GitHub Pages
